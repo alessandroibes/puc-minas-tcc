@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PUCMinas.SGQ.Core.Data\PUCMinas.SGQ.Core.Data.csproj" />
+    <ProjectReference Include="..\PUCMinas.SGQ.Incidentes.Business\PUCMinas.SGQ.Incidentes.Business.csproj" />
+  </ItemGroup>
+
+</Project>
