@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PUCMinas.SGQ.Core.Business.Models;
 using PUCMinas.SGQ.Core.Business.Interfaces;
-using PUCMinas.SGQ.Core.Data.Context;
+using PUCMinas.SGQ.Core.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +11,10 @@ namespace PUCMinas.SGQ.Core.Data.Repository
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
-        protected readonly BaseDbContext Context;
+        protected readonly DbContext Context;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(BaseDbContext context)
+        public Repository(DbContext context)
         {
             Context = context;
             DbSet = context.Set<TEntity>();

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace PUCMinas.SGQ.Incidentes.Business.Interfaces
 {
-    public interface INaoConformidadeRepository : IRepository<RNC>
+    public interface IRNCRepository : IRepository<RNC>
     {
-        Task<IEnumerable<RNC>> ObterNaoConformidadePorStatus(StatusRNC status);
+        Task<IEnumerable<RNC>> ObterRNCStatus(StatusRNC status);
     }
 }

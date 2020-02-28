@@ -8,20 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Elmah.Io.AspNetCore" Version="3.6.63" />
+    <PackageReference Include="Elmah.Io.AspNetCore.HealthChecks" Version="3.6.63-pre" />
+    <PackageReference Include="Elmah.Io.Extensions.Logging" Version="3.4.38" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PUCMinas.SGQ.Core.WebApi\PUCMinas.SGQ.Core.WebApi.csproj" />
-    <ProjectReference Include="..\PUCMinas.SGQ.IdentityService.WebAPI\PUCMinas.SGQ.IdentityService.WebAPI.csproj" />
     <ProjectReference Include="..\PUCMinas.SGQ.Incidentes.Data\PUCMinas.SGQ.Incidentes.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

@@ -3,15 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using PUCMinas.SGQ.Core.Business.Interfaces;
 using PUCMinas.SGQ.Core.Business.Notificacoes;
+using PUCMinas.SGQ.Core.WebApi.Extensions;
 using PUCMinas.SGQ.IdentityService.WebAPI.Context;
-using PUCMinas.SGQ.IdentityService.WebAPI.Extensions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection ResolveDependencies(this IServiceCollection services)
+        public static IServiceCollection ResolveApiIdentityServiceConfigDependencies(this IServiceCollection services)
         {
             // Context
             services.AddScoped<IdentityServiceDbContext>();

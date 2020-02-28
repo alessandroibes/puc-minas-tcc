@@ -4,20 +4,17 @@ using PUCMinas.SGQ.Incidentes.Business.Models;
 
 namespace PUCMinas.SGQ.Incidentes.Data.Mappings
 {
-    public class NaoConformidadeMapping : IEntityTypeConfiguration<RNC>
+    public class CausaMapping : IEntityTypeConfiguration<Causa>
     {
-        public void Configure(EntityTypeBuilder<RNC> builder)
+        public void Configure(EntityTypeBuilder<Causa> builder)
         {
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Ocorrencia)
+            builder.Property(p => p.Nome)
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
-            builder.Property(p => p.Descricao)
-                .HasColumnType("varchar(1000)");
-
-            builder.ToTable("NaoConformidades");
+            builder.ToTable("Causas");
         }
     }
 }

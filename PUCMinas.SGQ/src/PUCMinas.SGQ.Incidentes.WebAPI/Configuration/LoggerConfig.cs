@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PUCMinas.SGQ.IdentityService.WebAPI.Extensions;
 using System;
 
-namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
+namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
 {
     public static class LoggerConfig
     {
@@ -33,9 +32,9 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
             });
 
             services.AddHealthChecks()
-                .AddElmahIoPublisher("bf9803cc9bcd45cb960f56d4a1069f13", new Guid("fa143189-ec34-48f2-9373-4a9f8868bc65"), "API SGQ.IdentityService")
-                .AddCheck("AspNetUsers", new SqlServerHealthCheck(configuration.GetConnectionString("IdentityServiceConnection")))
-                .AddSqlServer(configuration.GetConnectionString("IdentityServiceConnection"), name: "BancoSQL");
+                .AddElmahIoPublisher("bf9803cc9bcd45cb960f56d4a1069f13", new Guid("fa143189-ec34-48f2-9373-4a9f8868bc65"), "API SGQ.Incidentes")
+                //.AddCheck("AspNetUsers", new SqlServerHealthCheck(configuration.GetConnectionString("IncidentesConnection")))
+                .AddSqlServer(configuration.GetConnectionString("IncidentesConnection"), name: "BancoSQL");
 
             services.AddHealthChecksUI();
 

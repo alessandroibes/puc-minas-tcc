@@ -1,29 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using PUCMinas.SGQ.IdentityService.WebAPI.Context;
-using PUCMinas.SGQ.IdentityService.WebAPI.Extensions;
+using PUCMinas.SGQ.Core.Business.Models;
 using System.Text;
 
-namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
+namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
 {
     public static class IdentityConfig
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddDbContext<IdentityServiceDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("IdentityServiceConnection")));
-
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<IdentityServiceDbContext>()
-                .AddErrorDescriber<IdentityServiceGlobalizationPortugues>()
-                .AddDefaultTokenProviders();
-
             // JWT
             var appSettingsSection = configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

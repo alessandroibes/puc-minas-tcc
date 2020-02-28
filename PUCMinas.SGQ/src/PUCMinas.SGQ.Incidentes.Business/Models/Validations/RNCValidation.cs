@@ -6,12 +6,39 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models.Validations
     {
         public RNCValidation()
         {
-            RuleFor(i => i.Ocorrencia)
+            RuleFor(p => p.Ocorrencia)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
-                .Length(5, 100).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
+                .Length(5, 200).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
-            RuleFor(i => i.Descricao)
+            RuleFor(p => p.Descricao)
                 .Length(5, 1000).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
+
+            RuleFor(p => p.GerenteCriador)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.Classificacao)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.EngenheiroResponsavel)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.GestorAvaliador)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.Status)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.Gravidade)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.Causa)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.Prazo)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(p => p.DataOcorrencia)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }
     }
 }

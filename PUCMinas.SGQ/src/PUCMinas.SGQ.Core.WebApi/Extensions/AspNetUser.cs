@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace PUCMinas.SGQ.IdentityService.WebAPI.Extensions
+namespace PUCMinas.SGQ.Core.WebApi.Extensions
 {
     public class AspNetUser : IUser
     {

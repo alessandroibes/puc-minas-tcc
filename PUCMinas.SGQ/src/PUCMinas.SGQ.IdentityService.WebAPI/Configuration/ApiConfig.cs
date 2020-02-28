@@ -6,7 +6,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
 {
     public static class ApiConfig
     {
-        public static IServiceCollection WebApiConfig(this IServiceCollection services)
+        public static IServiceCollection WebApiApiIdentityServiceConfigConfig(this IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -28,8 +28,8 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
                         builder
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+                        .AllowAnyHeader());
+                        //.AllowCredentials());
 
                 //options.AddPolicy("Production",
                 //    builder =>
@@ -44,7 +44,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
             return services;
         }
 
-        public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app)
+        public static IApplicationBuilder UseMvcIdentityServiceConfiguration(this IApplicationBuilder app)
         {
             app.UseCors("Development");
             app.UseHttpsRedirection();

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using PUCMinas.SGQ.Core.Business.Interfaces;
 using PUCMinas.SGQ.Core.Business.Notificacoes;
-using PUCMinas.SGQ.IdentityService.WebAPI.Extensions;
+using PUCMinas.SGQ.Core.WebApi.Extensions;
 using PUCMinas.SGQ.Processos.Business.Interfaces;
 using PUCMinas.SGQ.Processos.Data.Context;
 using PUCMinas.SGQ.Processos.Data.Repository;

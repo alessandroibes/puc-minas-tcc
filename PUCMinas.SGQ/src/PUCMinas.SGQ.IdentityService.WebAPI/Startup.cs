@@ -26,15 +26,15 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI
         {
             services.AddDbContext<IdentityServiceDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityServiceConnection"));
             });
 
             services.AddIdentityConfiguration(Configuration);
             services.AddAutoMapper(typeof(Startup));
-            services.WebApiConfig();
-            services.AddSwaggerConfig();
+            services.WebApiApiIdentityServiceConfigConfig();
+            services.AddSwaggerGen(c => c.OperationFilter<SwaggerDefaultValues>());
             services.AddLoggingConfiguration(Configuration);
-            services.ResolveDependencies();
+            services.ResolveApiIdentityServiceConfigDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +52,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI
             }
 
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseMvcConfiguration();
+            app.UseMvcIdentityServiceConfiguration();
             app.UseSwaggerConfig(provider);
             app.UseLoggingConfiguration();
         }
