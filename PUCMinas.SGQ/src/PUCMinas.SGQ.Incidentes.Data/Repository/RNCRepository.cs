@@ -15,7 +15,7 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
 
         public async Task<IEnumerable<RNC>> ObterRNCStatus(StatusRNC status)
         {
-            return await (Context as IncidentesDbContext).RNCs.AsNoTracking().Include(i => i.Status == status)
+            return await (Db as IncidentesDbContext).RNCs.AsNoTracking().Include(i => i.Status == status)
                 .OrderBy(i => i.Prazo).ToListAsync();
         }
     }

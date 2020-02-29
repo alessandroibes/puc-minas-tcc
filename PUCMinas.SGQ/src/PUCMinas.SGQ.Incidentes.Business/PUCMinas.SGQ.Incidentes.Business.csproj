@@ -8,8 +8,4 @@
     <ProjectReference Include="..\PUCMinas.SGQ.Core.Business\PUCMinas.SGQ.Core.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

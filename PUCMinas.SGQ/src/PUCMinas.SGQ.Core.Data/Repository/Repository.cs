@@ -11,13 +11,13 @@ namespace PUCMinas.SGQ.Core.Data.Repository
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
-        protected readonly DbContext Context;
+        protected readonly DbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(DbContext context)
+        public Repository(DbContext db)
         {
-            Context = context;
-            DbSet = context.Set<TEntity>();
+            Db = db;
+            DbSet = db.Set<TEntity>();
         }
 
         public virtual async Task Adicionar(TEntity entity)
@@ -49,18 +49,28 @@ namespace PUCMinas.SGQ.Core.Data.Repository
 
         public virtual async Task Remover(Guid id)
         {
-            DbSet.Remove(new TEntity { Id = id });
+            TEntity entity = DbSet.Find(id);
+            await Remover(entity);
+        }
+
+        public virtual async Task Remover(TEntity entity)
+        {
+            if (Db.Entry(entity).State == EntityState.Detached)
+            {
+                DbSet.Attach(entity);
+            }
+            DbSet.Remove(entity);
             await SaveChanges();
         }
 
         public async Task<int> SaveChanges()
         {
-            return await Context.SaveChangesAsync();
+            return await Db.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            Context?.Dispose();
+            Db?.Dispose();
         }
     }
 }

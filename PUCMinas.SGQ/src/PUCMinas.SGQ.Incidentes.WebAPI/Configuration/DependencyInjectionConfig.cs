@@ -5,6 +5,7 @@ using PUCMinas.SGQ.Core.Business.Interfaces;
 using PUCMinas.SGQ.Core.Business.Notificacoes;
 using PUCMinas.SGQ.Core.WebApi.Extensions;
 using PUCMinas.SGQ.Incidentes.Business.Interfaces;
+using PUCMinas.SGQ.Incidentes.Business.Services;
 using PUCMinas.SGQ.Incidentes.Data.Context;
 using PUCMinas.SGQ.Incidentes.Data.Repository;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -20,7 +21,9 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
 
             services.AddScoped<IRNCRepository, RNCRepository>();
             services.AddScoped<IAcaoRepository, AcaoRepository>();
-            
+
+            services.AddScoped<IAcaoService, AcaoService>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
