@@ -50,7 +50,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
         {
             if (_acaoRepository.ObterAcaoComRNCs(id).Result.RNCs.Any())
             {
-                Notificar("O Ação já foi vinculada a uma RNC e não pode ser removida.");
+                Notificar("A Ação já foi vinculada a uma RNC e não pode ser removida.");
                 return false;
             }
 

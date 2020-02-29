@@ -45,11 +45,11 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<AcaoViewModel>> ObterPorId(Guid id)
         {
-            var rnc = _mapper.Map<AcaoViewModel>(await _acaoRepository.ObterPorId(id));
+            var acao = _mapper.Map<AcaoViewModel>(await _acaoRepository.ObterPorId(id));
 
-            if (rnc == null) return NotFound();
+            if (acao == null) return NotFound();
 
-            return rnc;
+            return acao;
         }
 
         //[ClaimsAuthorize("Acao", "Add")]

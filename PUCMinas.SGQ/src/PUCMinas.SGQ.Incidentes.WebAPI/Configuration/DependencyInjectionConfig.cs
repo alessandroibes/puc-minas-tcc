@@ -21,8 +21,10 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
 
             services.AddScoped<IRNCRepository, RNCRepository>();
             services.AddScoped<IAcaoRepository, AcaoRepository>();
+            services.AddScoped<ICausaRepository, CausaRepository>();
 
             services.AddScoped<IAcaoService, AcaoService>();
+            services.AddScoped<ICausaService, CausaService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
