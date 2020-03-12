@@ -1,12 +1,12 @@
 ﻿using PUCMinas.SGQ.Core.Business.Interfaces;
 using PUCMinas.SGQ.Incidentes.Business.Models;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace PUCMinas.SGQ.Incidentes.Business.Interfaces
 {
-    public interface IRNCRepository : IRepository<RNC>
+    public interface IGravidadeRepository : IRepository<Gravidade>
     {
-        Task<IEnumerable<RNC>> ObterRNCPorStatus(StatusRNC status);
+        Task<Gravidade> ObterGravidadeComRNCs(Guid id);
     }
 }

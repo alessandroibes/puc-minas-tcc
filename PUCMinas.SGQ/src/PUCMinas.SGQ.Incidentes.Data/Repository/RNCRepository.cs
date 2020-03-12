@@ -13,7 +13,7 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
     {
         public RNCRepository(IncidentesDbContext context) : base(context) { }
 
-        public async Task<IEnumerable<RNC>> ObterRNCStatus(StatusRNC status)
+        public async Task<IEnumerable<RNC>> ObterRNCPorStatus(StatusRNC status)
         {
             return await (Db as IncidentesDbContext).RNCs.AsNoTracking().Include(i => i.Status == status)
                 .OrderBy(i => i.Prazo).ToListAsync();
