@@ -17,22 +17,22 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
         {
             services.AddElmahIo(o =>
             {
-                o.ApiKey = "bf9803cc9bcd45cb960f56d4a1069f13";
-                o.LogId = new Guid("fa143189-ec34-48f2-9373-4a9f8868bc65");
+                o.ApiKey = "c0acb8e3360f41f481a3cb02312d7502";
+                o.LogId = new Guid("32fc6931-11e6-424c-b141-80dd8b8ed5a6");
             });
 
             services.AddLogging(builder =>
             {
                 builder.AddElmahIo(o =>
                 {
-                    o.ApiKey = "bf9803cc9bcd45cb960f56d4a1069f13";
-                    o.LogId = new Guid("fa143189-ec34-48f2-9373-4a9f8868bc65");
+                    o.ApiKey = "c0acb8e3360f41f481a3cb02312d7502";
+                    o.LogId = new Guid("32fc6931-11e6-424c-b141-80dd8b8ed5a6");
                 });
                 builder.AddFilter<ElmahIoLoggerProvider>(null, LogLevel.Warning);
             });
 
             services.AddHealthChecks()
-                .AddElmahIoPublisher("bf9803cc9bcd45cb960f56d4a1069f13", new Guid("fa143189-ec34-48f2-9373-4a9f8868bc65"), "API SGQ.Incidentes")
+                .AddElmahIoPublisher("c0acb8e3360f41f481a3cb02312d7502", new Guid("32fc6931-11e6-424c-b141-80dd8b8ed5a6"), "API SGQ.Incidentes")
                 //.AddCheck("AspNetUsers", new SqlServerHealthCheck(configuration.GetConnectionString("IncidentesConnection")))
                 .AddSqlServer(configuration.GetConnectionString("IncidentesConnection"), name: "BancoSQL");
 

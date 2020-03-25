@@ -24,6 +24,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
             services.AddScoped<ICausaRepository, CausaRepository>();
             services.AddScoped<IGravidadeRepository, GravidadeRepository>();
 
+            services.AddScoped<IRNCService, RNCService>();
             services.AddScoped<IAcaoService, AcaoService>();
             services.AddScoped<ICausaService, CausaService>();
             services.AddScoped<IGravidadeService, GravidadeService>();

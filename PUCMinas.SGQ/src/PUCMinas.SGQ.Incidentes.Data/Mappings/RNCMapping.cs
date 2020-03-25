@@ -20,17 +20,20 @@ namespace PUCMinas.SGQ.Incidentes.Data.Mappings
             // 1 : N => RNC : Gravidade
             builder.HasOne(p => p.Gravidade)
                 .WithMany(g => g.RNCs)
-                .HasForeignKey(g => g.GravidadeId);
+                .HasForeignKey(g => g.GravidadeId)
+                .IsRequired(true);
 
             // 1 : N => RNC : Causa
             builder.HasOne(p => p.Causa)
                 .WithMany(g => g.RNCs)
-                .HasForeignKey(g => g.CausaId);
+                .HasForeignKey(g => g.CausaId)
+                .IsRequired(true);
 
             // 1 : N => RNC : Causa
             builder.HasOne(p => p.Acao)
                 .WithMany(g => g.RNCs)
-                .HasForeignKey(g => g.AcaoId);
+                .HasForeignKey(g => g.AcaoId)
+                .IsRequired(false);
 
             builder.ToTable("RNCs");
         }

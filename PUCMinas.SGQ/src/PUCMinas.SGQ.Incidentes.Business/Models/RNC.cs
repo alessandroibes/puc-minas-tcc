@@ -7,7 +7,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models
     {
         public Guid GravidadeId { get; set; }
         public Guid CausaId { get; set; }
-        public Guid AcaoId { get; set; }
+        public Guid? AcaoId { get; set; }
 
         public string Ocorrencia { get; set; }
         public string Descricao { get; set; }

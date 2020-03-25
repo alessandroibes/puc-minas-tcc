@@ -13,9 +13,6 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models.Validations
             RuleFor(p => p.Descricao)
                 .Length(5, 1000).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
-            RuleFor(p => p.GerenteCriador)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
-
             RuleFor(p => p.Classificacao)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
@@ -28,10 +25,10 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models.Validations
             RuleFor(p => p.Status)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(p => p.Gravidade)
+            RuleFor(p => p.GravidadeId)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(p => p.Causa)
+            RuleFor(p => p.CausaId)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
             RuleFor(p => p.Prazo)

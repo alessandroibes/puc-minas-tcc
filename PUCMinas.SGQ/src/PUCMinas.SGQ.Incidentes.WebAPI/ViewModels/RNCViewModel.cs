@@ -17,9 +17,6 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.ViewModels
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public Guid GerenteCriador { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public ClassificacaoRNC Classificacao { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
@@ -32,20 +29,17 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.ViewModels
         public StatusRNC Status { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public GravidadeViewModel Gravidade { get; set; }
+        public Guid GravidadeId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public CausaViewModel Causa { get; set; }
+        public Guid CausaId { get; set; }
 
-        public AcaoViewModel Acao { get; set; }
+        public Guid? AcaoId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime Prazo { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime DataOcorrencia { get; set; }
-
-        public DateTime DataResolucao { get; set; }
-        public DateTime DataFechamento { get; set; }
     }
 }

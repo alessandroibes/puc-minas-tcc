@@ -2,10 +2,9 @@
 {
     public enum StatusRNC
     {
-        PendenteAbertura = 1,
-        Aberta,
-        SolucaoEmAndamento,
-        AguardandoAprovacao,
+        Aberta = 1,
+        AguardandoConfirmacao,
+        AguardandoCorrecao,
         Resolvida
     }
 }
