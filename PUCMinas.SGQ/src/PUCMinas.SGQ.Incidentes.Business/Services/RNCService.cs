@@ -115,6 +115,14 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
 
         public async Task<bool> Remover(Guid id)
         {
+            var rncAnterior = await _rncRepository.ObterPorId(id);
+
+            if (rncAnterior.Status == StatusRNC.AguardandoConfirmacao || rncAnterior.Status == StatusRNC.Resolvida)
+            {
+                Notificar("Não é possível remover uma RNC resolvida.");
+                return false;
+            }
+
             await _rncRepository.Remover(id);
             return true;
         }

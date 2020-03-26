@@ -2,7 +2,7 @@
 
 namespace PUCMinas.SGQ.Processos.Business.Models
 {
-    public class Atividade : Entity
+    public class Parada : Entity
     {
         public string Descricao { get; set; }
     }

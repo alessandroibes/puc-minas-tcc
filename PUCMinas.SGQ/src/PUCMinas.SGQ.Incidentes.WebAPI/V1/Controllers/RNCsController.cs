@@ -32,16 +32,14 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             _mapper = mapper;
         }
 
-        //[Authorize(Roles = "gerente,engenheiro")]
-        [AllowAnonymous]
+        [Authorize(Roles = "gerente,engenheiro")]
         [HttpGet]
         public async Task<IEnumerable<RNCViewModel>> ObterTodos()
         {
             return _mapper.Map<IEnumerable<RNCViewModel>>(await _rncRepository.ObterTodos());
         }
 
-        //[Authorize(Roles = "gerente,engenheiro")]
-        [AllowAnonymous]
+        [Authorize(Roles = "gerente,engenheiro")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<RNCViewModel>> ObterPorId(Guid id)
         {
@@ -52,8 +50,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return rnc;
         }
 
-        //[Authorize(Roles = "gerente")]
-        [AllowAnonymous]
+        [Authorize(Roles = "gerente")]
         [HttpPost]
         public async Task<ActionResult<RNCViewModel>> Adicionar(RNCViewModel rncViewModel)
         {
@@ -64,8 +61,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(rncViewModel);
         }
 
-        //[Authorize(Roles = "gerente,engenheiro")]
-        [AllowAnonymous]
+        [Authorize(Roles = "gerente,engenheiro")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<RNCViewModel>> Atualizar(Guid id, RNCViewModel rncViewModel)
         {
