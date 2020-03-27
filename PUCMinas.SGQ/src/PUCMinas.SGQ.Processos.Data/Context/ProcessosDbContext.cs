@@ -8,5 +8,6 @@ namespace PUCMinas.SGQ.Processos.Data.Context
         public ProcessosDbContext(DbContextOptions<ProcessosDbContext> options) : base(options) { }
 
         public DbSet<Atividade> Atividades { get; set; }
+        public DbSet<PassoDefinicao> PassoDefinicoes { get; set; }
     }
 }

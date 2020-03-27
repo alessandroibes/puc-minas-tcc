@@ -9,8 +9,4 @@
     <ProjectReference Include="..\PUCMinas.SGQ.Processos.Business\PUCMinas.SGQ.Processos.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappings\" />
-  </ItemGroup>
-
 </Project>
