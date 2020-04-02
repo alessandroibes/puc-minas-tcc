@@ -1,37 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-registerLocaleData(localePt);
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NavegacaoModule } from './navegacao/navegacao.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.routes';
 import { IncidenteModule } from './modulos/incidentes/incidentes.module';
-import { LoginComponent } from './identity/login/login.component';
-
-import { AdminGuard } from './identity/services/admin.guard';
-import { AuthenticatedGuard } from './identity/services/authenticated.guard';
-import { IdentityService } from './identity/services/identity.service';
+import { IdentityModule } from './identity/Identity.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     NavegacaoModule,
     AppRoutingModule,
+    IdentityModule,
     IncidenteModule,
     ReactiveFormsModule
   ],
   providers: [
-    AdminGuard,
-    AuthenticatedGuard,
-    IdentityService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { RNC } from '../models/rnc';
-import { IncidenteService } from '../incidentes.service';
+import { IncidenteService } from '../services/incidentes.service';
 import { StatusRNC } from '../models/status';
 
 @Component({

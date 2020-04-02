@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigService } from 'src/app/modulos/core/config.services';
+import { ConfigService } from 'src/app/modulos/core/services/config.services';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -20,7 +20,7 @@ export class IdentityService {
 
     public get currentUserValue(): User {
         const now = Date.now();
-        if (this.currentUserSubject && this.currentUserSubject.value && this.currentUserSubject.value.expiresIn > now) {
+        if (this.currentUserSubject && this.currentUserSubject.value && this.currentUserSubject.value.expiresIn < now) {
             this.logout();
         }
 
@@ -28,13 +28,13 @@ export class IdentityService {
     }
 
     login(email: string, password: string) {
-        return this.http.post<any>(this.config.apiAddress + "entrar", { email, password })
+        return this.http.post<any>(this.config.apiIdentityServiceAddress + "v1/entrar", { email, password })
             .pipe(map(response => {
                 if (response && response.success) {
                     this.loggedUser = new User;
                     this.loggedUser.email = email;
                     this.loggedUser.password = password;
-                    this.loggedUser.expiresIn = response.data.expiresIn + Date.now();
+                    this.loggedUser.expiresIn = (response.data.expiresIn * 1000) + Date.now();
                     this.loggedUser.loginUser = response.data;
 
                     localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));

@@ -1,5 +1,6 @@
 {
   "ReRoutes": [
+    // IdentityService
     {
       "DownstreamPathTemplate": "/api/v1/registrar",
       "DownstreamScheme": "https",
@@ -25,6 +26,35 @@
         {
           "Host": "localhost",
           "Port": 5001
+        }
+      ]
+    },
+    // Incidentes
+    {
+      "DownstreamPathTemplate": "/api/v1/rncs",
+      "DownstreamScheme": "https",
+      "DownstreamPort": 5003,
+      "DownstreamHost": "localhost",
+      "UpstreamPathTemplate": "/api/v1/rncs",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/rncs/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamPort": 5003,
+      "DownstreamHost": "localhost",
+      "UpstreamPathTemplate": "/api/v1/rncs/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
         }
       ]
     }

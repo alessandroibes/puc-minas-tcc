@@ -14,6 +14,8 @@ const rootRouterConfig: Routes = [
 ];
 
 @NgModule({
+    declarations: [
+    ],
     imports: [
         RouterModule.forRoot(rootRouterConfig, { enableTracing: false })
     ],
