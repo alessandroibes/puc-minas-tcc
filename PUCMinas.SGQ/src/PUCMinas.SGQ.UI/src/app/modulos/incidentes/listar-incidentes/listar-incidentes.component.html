@@ -1,0 +1,28 @@
+<div class="container main-container">
+    <h3>RNC - Registro de Não Conformidade</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ocorrencia</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data</th>
+                <th scope="col">Operações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rnc of rncs">
+                <td>{{ rnc.ocorrencia }}</td>
+                <td>{{ getRNCStatusType(rnc.status) }}</td>
+                <td>{{ rnc.dataOcorrencia }}</td>
+                <td>
+                    <button class="fa fa-pencil fa-lg">
+                    </button>
+                    <button class="fa fa-pencil fa-lg">
+                    </button>
+                    <button class="fa fa-pencil fa-lg">
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
