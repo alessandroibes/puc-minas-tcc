@@ -8,10 +8,12 @@ import { LoginComponent } from './login/login.component';
 import { IdentityService } from './services/identity.service';
 import { AdminGuard } from './services/admin.guard';
 import { AuthenticatedGuard } from './services/authenticated.guard';
+import { AlertComponent } from '../modulos/core/alerts/alert.component';
 
 @NgModule({
     declarations: [
-        LoginComponent
+        LoginComponent,
+        AlertComponent
     ],
     imports: [
         CommonModule,

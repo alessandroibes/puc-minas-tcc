@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { IdentityService } from './identity/services/identity.service';
 import { User } from './identity/models/user';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'PUC Minas - SGQ';
-
   currentUser: User;
 
   constructor(private router: Router,
     private identityService: IdentityService) {
     this.identityService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
-    if (!this.currentUser) {
-      this.router.navigate(['/login']);
-    }
+  logout() {
+    this.identityService.logout();
+    this.router.navigate(['login']);
   }
 }

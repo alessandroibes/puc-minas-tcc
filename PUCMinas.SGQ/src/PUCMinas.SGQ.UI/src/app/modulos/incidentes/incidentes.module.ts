@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { ListarIncidentesComponent } from './listar-incidentes/listar-incidentes.component';
 
 import { IncidenteService } from './services/incidentes.service';
-import { ConfigService } from '../core/services/config.services';
 
 @NgModule({
     declarations: [
@@ -16,10 +16,10 @@ import { ConfigService } from '../core/services/config.services';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     providers: [
-        ConfigService,
         IncidenteService
     ],
     exports: [

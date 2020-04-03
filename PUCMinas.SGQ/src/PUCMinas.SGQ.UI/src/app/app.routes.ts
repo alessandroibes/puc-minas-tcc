@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
+
 import { HomeComponent } from './navegacao/home/home.component';
 import { LoginComponent } from './identity/login/login.component';
+import { ListarIncidentesComponent } from './modulos/incidentes/listar-incidentes/listar-incidentes.component';
+import { NotFoundComponent } from './navegacao/not-found/not-found.component';
+
 import { AuthenticatedGuard } from './identity/services/authenticated.guard';
 import { AdminGuard } from './identity/services/admin.guard';
-import { ListarIncidentesComponent } from './modulos/incidentes/listar-incidentes/listar-incidentes.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthenticatedGuard] },
     { path: 'login', component: LoginComponent },
-    { path: 'listar-incidentes', component: ListarIncidentesComponent, canActivate: [AuthenticatedGuard, AdminGuard] }
+    { path: 'listar-incidentes', component: ListarIncidentesComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
+
+    // otherwise redirect to 404 page
+    { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

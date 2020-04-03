@@ -4,16 +4,19 @@
         <a class="navbar-brand" [routerLink]="['/home']">SGQ PUC Minas</a>
         <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="Toggle navigation" *ngIf="currentUser">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive" [ngClass]="{ 'show': navbarOpen }">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto" *ngIf="currentUser">
                 <li class="nav-item" *ngFor="let item of nav">
                     <a class="nav-link" [routerLink]="item.link" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: item.exact }">
-                        {{ item. name }}
+                        {{ item.name }}
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()" href="/login">Logout</a>
                 </li>
             </ul>
         </div>

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from 'src/app/modulos/core/services/config.services';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../models/user';
+import { User } from '../models/user'
 
 @Injectable({
     providedIn: 'root'
@@ -36,6 +36,26 @@ export class IdentityService {
                     this.loggedUser.password = password;
                     this.loggedUser.expiresIn = (response.data.expiresIn * 1000) + Date.now();
                     this.loggedUser.loginUser = response.data;
+
+                    response.data.userToken.claims.filter(x => x.type = "role").map(role => {
+                        switch (role.value) {
+                            case "admin":
+                                this.loggedUser.admin = true;
+                                break;
+                            case "gerente":
+                                this.loggedUser.gerente = true;
+                                break;
+                            case "operador":
+                                this.loggedUser.operador = true;
+                                break;
+                            case "engenheiro":
+                                this.loggedUser.engenheiro = true;
+                                break;
+                            case "gestor":
+                                this.loggedUser.gestor = true;
+                                break;
+                        }
+                    });
 
                     localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
                     this.currentUserSubject.next(this.loggedUser);

@@ -5,6 +5,12 @@ export class User {
     password: string;
     expiresIn: number;
     loginUser: LoginUser;
+
+    admin: boolean;
+    gerente: boolean;
+    operador: boolean;
+    engenheiro: boolean;
+    gestor: boolean;
 }
 
 export class LoginUser {

@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 
 import { AppComponent } from './app.component';
+
 import { NavegacaoModule } from './navegacao/navegacao.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.routes';
 import { IncidenteModule } from './modulos/incidentes/incidentes.module';
 import { IdentityModule } from './identity/Identity.module';
+
+import { ConfigService } from './modulos/core/services/config.services';
+import { AlertService } from './modulos/core/services/alert.service';
 
 @NgModule({
   declarations: [
@@ -18,9 +26,12 @@ import { IdentityModule } from './identity/Identity.module';
     AppRoutingModule,
     IdentityModule,
     IncidenteModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [
+    ConfigService,
+    AlertService
   ],
   bootstrap: [AppComponent]
 })
