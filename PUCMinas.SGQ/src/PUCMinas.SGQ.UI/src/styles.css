@@ -27,3 +27,12 @@ textarea {
 .logopuc {
   padding-top: 20px;
 }
+
+ul li + .submenu{
+  display: none;
+}
+
+ul li.active + .submenu {
+  display: block;
+  list-style: none;
+}

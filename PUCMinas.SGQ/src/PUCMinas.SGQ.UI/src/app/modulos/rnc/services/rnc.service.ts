@@ -5,7 +5,7 @@ import { RNC } from '../models/rnc';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class IncidenteService {
+export class RNCService {
     constructor(private http: HttpClient, private config: ConfigService) { }
 
     getRNC(): Observable<RNC[]> {

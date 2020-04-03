@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { HomeComponent } from './navegacao/home/home.component';
 import { LoginComponent } from './identity/login/login.component';
-import { ListarIncidentesComponent } from './modulos/incidentes/listar-incidentes/listar-incidentes.component';
+import { ListarRNCComponent } from './modulos/rnc/listar-rnc/listar-rnc.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 
 import { AuthenticatedGuard } from './identity/services/authenticated.guard';
@@ -13,7 +13,7 @@ const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, canActivate: [AuthenticatedGuard] },
     { path: 'login', component: LoginComponent },
-    { path: 'listar-incidentes', component: ListarIncidentesComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
+    { path: 'listar-rnc', component: ListarRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
 
     // otherwise redirect to 404 page
     { path: '**', component: NotFoundComponent }

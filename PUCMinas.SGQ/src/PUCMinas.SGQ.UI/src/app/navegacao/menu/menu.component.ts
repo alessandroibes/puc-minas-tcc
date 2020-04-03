@@ -16,19 +16,6 @@ export class MenuComponent {
         this.identityService.currentUser.subscribe(x => this.currentUser = x);
     }
 
-    nav: Nav[] = [
-        {
-            link: '/home',
-            name: 'Home',
-            exact: true
-        },
-        {
-            link: '/listar-incidentes',
-            name: 'Incidentes',
-            exact: true
-        }
-    ]
-
     toggleNavbar() {
         this.navbarOpen = !this.navbarOpen;
     }
@@ -37,10 +24,4 @@ export class MenuComponent {
         this.identityService.logout();
         this.router.navigate(['login']);
     }
-}
-
-interface Nav {
-    link: string,
-    name: string,
-    exact: boolean
 }

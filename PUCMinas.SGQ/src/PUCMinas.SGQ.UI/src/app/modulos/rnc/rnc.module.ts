@@ -4,13 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { ListarIncidentesComponent } from './listar-incidentes/listar-incidentes.component';
+import { ListarRNCComponent } from './listar-rnc/listar-rnc.component';
 
-import { IncidenteService } from './services/incidentes.service';
+import { RNCService } from './services/rnc.service';
 
 @NgModule({
     declarations: [
-        ListarIncidentesComponent
+        ListarRNCComponent
     ],
     imports: [
         CommonModule,
@@ -20,10 +20,10 @@ import { IncidenteService } from './services/incidentes.service';
         RouterModule
     ],
     providers: [
-        IncidenteService
+        RNCService
     ],
     exports: [
 
     ]
 })
-export class IncidenteModule { }
+export class RNCModule { }

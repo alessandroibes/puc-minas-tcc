@@ -9,12 +9,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive" [ngClass]="{ 'show': navbarOpen }">
             <ul class="navbar-nav ml-auto" *ngIf="currentUser">
-                <li class="nav-item" *ngFor="let item of nav">
-                    <a class="nav-link" [routerLink]="item.link" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: item.exact }">
-                        {{ item.name }}
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">Home</a>
+                </li>
+                <li expandMenu class="nav-item" *ngIf="currentUser && currentUser.gerente">
+                    <a class="nav-link">
+                        <span>RNC</span>
+                        <span>&nbsp;<i class="fa fa-angle-down fa-sm"></i></span>
                     </a>
                 </li>
+                <ul class="nav submenu mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/listar-rnc']" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Listar</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">&nbsp;<span>Manter</span></a>
+                    </li>
+                </ul>
                 <li class="nav-item">
                     <a class="nav-link" (click)="logout()" href="/login">Logout</a>
                 </li>
