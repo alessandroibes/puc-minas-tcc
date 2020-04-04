@@ -32,16 +32,14 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             _mapper = mapper;
         }
 
-        //[ClaimsAuthorize("Acao", "Sel")]
-        //[Authorize(Roles = "operador")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<AcaoViewModel>> ObterTodos()
         {
             return _mapper.Map<IEnumerable<AcaoViewModel>>(await _acaoRepository.ObterTodos());
         }
 
-        //[ClaimsAuthorize("Acao", "Sel")]
-        //[Authorize(Roles = "operador")]
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<AcaoViewModel>> ObterPorId(Guid id)
         {
@@ -52,8 +50,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return acao;
         }
 
-        //[ClaimsAuthorize("Acao", "Add")]
-        //[Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<AcaoViewModel>> Adicionar(AcaoViewModel acaoViewModel)
         {
@@ -64,8 +61,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(acaoViewModel);
         }
 
-        //[ClaimsAuthorize("Acao", "Upd")]
-        //[Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<AcaoViewModel>> Atualizar(Guid id, AcaoViewModel acaoViewModel)
         {
@@ -82,8 +78,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(acaoViewModel);
         }
 
-        //[ClaimsAuthorize("Acao", "Del")]
-        //[Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<AcaoViewModel>> Remover(Guid id)
         {

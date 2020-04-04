@@ -1,30 +1,33 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { CoreModule } from '../modulos/core/core.module';
 
 import { LoginComponent } from './login/login.component';
 
 import { IdentityService } from './services/identity.service';
 import { AdminGuard } from './services/admin.guard';
 import { AuthenticatedGuard } from './services/authenticated.guard';
-import { AlertComponent } from '../modulos/core/alerts/alert.component';
+import { JwtInterceptor } from './services/jwt.interceptor';
 
 @NgModule({
     declarations: [
-        LoginComponent,
-        AlertComponent
+        LoginComponent
     ],
     imports: [
         CommonModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CoreModule
     ],
     providers: [
         IdentityService,
         AdminGuard,
-        AuthenticatedGuard
+        AuthenticatedGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
     ],
     exports: [
     ]

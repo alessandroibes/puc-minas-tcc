@@ -32,16 +32,14 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             _mapper = mapper;
         }
 
-        //[ClaimsAuthorize("Gravidade", "Sel")]
-        [Authorize(Roles = "operador")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<GravidadeViewModel>> ObterTodos()
         {
             return _mapper.Map<IEnumerable<GravidadeViewModel>>(await _gravidadeRepository.ObterTodos());
         }
 
-        //[ClaimsAuthorize("Gravidade", "Sel")]
-        [Authorize(Roles = "operador")]
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<GravidadeViewModel>> ObterPorId(Guid id)
         {
@@ -52,8 +50,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return gravidade;
         }
 
-        //[ClaimsAuthorize("Gravidade", "Add")]
-        [Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<GravidadeViewModel>> Adicionar(GravidadeViewModel gravidadeViewModel)
         {
@@ -64,8 +61,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(gravidadeViewModel);
         }
 
-        //[ClaimsAuthorize("Gravidade", "Upd")]
-        [Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<GravidadeViewModel>> Atualizar(Guid id, GravidadeViewModel gravidadeViewModel)
         {
@@ -82,8 +78,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(gravidadeViewModel);
         }
 
-        //[ClaimsAuthorize("Gravidade", "Del")]
-        [Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<GravidadeViewModel>> Remover(Guid id)
         {

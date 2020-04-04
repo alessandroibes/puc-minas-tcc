@@ -4,20 +4,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { CoreModule } from '../core/core.module';
+
 import { ListarRNCComponent } from './listar-rnc/listar-rnc.component';
+import { ManterRNCComponent } from './manter-rnc/manter-rnc.component';
 
 import { RNCService } from './services/rnc.service';
 
 @NgModule({
     declarations: [
-        ListarRNCComponent
+        ListarRNCComponent,
+        ManterRNCComponent
     ],
     imports: [
         CommonModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
+        CoreModule
     ],
     providers: [
         RNCService

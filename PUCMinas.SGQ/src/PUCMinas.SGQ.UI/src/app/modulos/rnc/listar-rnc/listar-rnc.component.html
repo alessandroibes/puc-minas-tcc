@@ -1,5 +1,5 @@
 <div class="container main-container">
-    <h5>RNC - Registro de Não Conformidade</h5>
+    <h6>RNC - Registro de Não Conformidade</h6>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -15,7 +15,7 @@
                 <td class="text-center">{{ getRNCStatusType(rnc.status) }}</td>
                 <td class="text-center">{{ rnc.dataOcorrencia | date: "dd/MM/yyyy hh:mm" }}</td>
                 <td class="text-center">
-                    <button [routerLink]="['/manter-rnc', rnc.id]" class="fa fa-pencil fa-lg">
+                    <button [routerLink]="['/atualizar-rnc', rnc.id]" class="fa fa-pencil fa-lg">
                     </button>&nbsp;
                     <button class="fa fa-trash fa-lg" alt="Excluir">
                     </button>

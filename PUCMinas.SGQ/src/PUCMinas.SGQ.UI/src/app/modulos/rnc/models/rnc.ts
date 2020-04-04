@@ -1,5 +1,4 @@
-import { Guid } from "guid-typescript";
-import { StatusRNC } from './status';
+import { Guid } from 'guid-typescript';
 
 export interface RNC {
     id: Guid,
@@ -8,10 +7,9 @@ export interface RNC {
     classificacao: number,
     engenheiroResponsavel: Guid,
     gestorAvaliador: Guid,
-    status: StatusRNC,
+    status: number,
     gravidadeId: Guid,
     causaId: Guid,
     acaoId: Guid,
-    prazo: Date,
     dataOcorrencia: Date
 }

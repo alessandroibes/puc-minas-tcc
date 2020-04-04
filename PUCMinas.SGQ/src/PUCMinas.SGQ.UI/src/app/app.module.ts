@@ -12,9 +12,7 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AppRoutingModule } from './app.routes';
 import { RNCModule } from './modulos/rnc/rnc.module';
 import { IdentityModule } from './identity/Identity.module';
-
-import { ConfigService } from './modulos/core/services/config.services';
-import { AlertService } from './modulos/core/services/alert.service';
+import { CoreModule } from './modulos/core/core.module';
 
 @NgModule({
   declarations: [
@@ -29,10 +27,8 @@ import { AlertService } from './modulos/core/services/alert.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [
-    ConfigService,
-    AlertService
-  ],
+  providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

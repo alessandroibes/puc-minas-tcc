@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { RNC } from '../models/rnc';
 import { RNCService } from '../services/rnc.service';
-import { StatusRNC } from '../models/status';
 
 @Component({
     selector: 'listar-rnc',
@@ -20,6 +19,15 @@ export class ListarRNCComponent implements OnInit {
     }
 
     getRNCStatusType(cod: number): any {
-        return StatusRNC[cod];
+        switch (cod) {
+            case 1:
+                return "Aberta";
+            case 2:
+                return "Aguardando Confirmação";
+            case 3:
+                return "Aguardando Correção";
+            case 4:
+                return "Resolvida";
+        }
     }
 }

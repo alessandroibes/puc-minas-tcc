@@ -8,12 +8,15 @@ import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 
 import { AuthenticatedGuard } from './identity/services/authenticated.guard';
 import { AdminGuard } from './identity/services/admin.guard';
+import { ManterRNCComponent } from './modulos/rnc/manter-rnc/manter-rnc.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, canActivate: [AuthenticatedGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'listar-rnc', component: ListarRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
+    { path: 'criar-rnc', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
+    { path: 'atualizar-rnc/:id', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
 
     // otherwise redirect to 404 page
     { path: '**', component: NotFoundComponent }

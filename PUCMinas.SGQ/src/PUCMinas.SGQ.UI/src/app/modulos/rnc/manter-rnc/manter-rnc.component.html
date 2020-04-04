@@ -1,0 +1,74 @@
+<div class="container main-container">
+    <alert></alert>
+    <h6>RNC - Registro de Não Conformidade</h6>
+    <hr />
+    <div [hidden]="submitted">
+        <form novalidate (ngSubmit)="onSubmit()" [formGroup]="rncForm">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="col-md-2 mb-0 control-label" for="ocorrencia">Ocorrência</label>
+                    <div class="col-md-10">
+                        <input class="form-control form-control-sm" id="ocorrencia" type="text"
+                            formControlName="ocorrencia" [ngClass]="{'is-invalid': displayMessage.ocorrencia }">
+                        <span class="text-danger" *ngIf="displayMessage.ocorrencia">
+                            <p [innerHTML]="displayMessage.ocorrencia"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 mb-0 control-label" for="descricao">Descrição</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control form-control-sm" id="descricao" type="text"
+                            formControlName="descricao" [ngClass]="{'is-invalid': displayMessage.descricao }"
+                            rows="3"></textarea>
+                        <span class="text-danger" *ngIf="displayMessage.descricao">
+                            <p [innerHTML]="displayMessage.descricao"></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 mb-0 control-label" for="descricao">Classificação</label>
+                    <div class="col-md-10">
+                        <select class="form-control form-control-sm" id="descricao" type="text">
+                            <option *ngFor="let key of classificacao" [value]="key.value">{{ key.label }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 mb-0 control-label" for="gravidade">Gravidade</label>
+                    <div class="col-md-10">
+                        <select class="form-control form-control-sm" id="gravidade" type="text"
+                            formControlName="gravidade">
+                            <option *ngFor="let gravidade of gravidades" [value]="gravidade.id">{{ gravidade.nome }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 mb-0 control-label" for="causa">Causa</label>
+                    <div class="col-md-10">
+                        <select class="form-control form-control-sm" id="causa" type="text" formControlName="causa">
+                            <option *ngFor="let causa of causas" [value]="causa.id">{{ causa.nome }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 mb-0 control-label" for="acao">Ação</label>
+                    <div class="col-md-10">
+                        <select class="form-control form-control-sm" id="acao" type="text" formControlName="acao">
+                            <option *ngFor="let acao of acoes" [value]="acao.id">{{ acao.nome }}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

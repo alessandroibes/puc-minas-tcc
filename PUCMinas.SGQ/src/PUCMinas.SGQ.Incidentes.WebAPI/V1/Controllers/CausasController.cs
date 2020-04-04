@@ -32,16 +32,14 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             _mapper = mapper;
         }
 
-        //[ClaimsAuthorize("Causa", "Sel")]
-        [Authorize(Roles = "operador")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<CausaViewModel>> ObterTodos()
         {
             return _mapper.Map<IEnumerable<CausaViewModel>>(await _causaRepository.ObterTodos());
         }
 
-        //[ClaimsAuthorize("Causa", "Sel")]
-        [Authorize(Roles = "operador")]
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CausaViewModel>> ObterPorId(Guid id)
         {
@@ -52,8 +50,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return causa;
         }
 
-        //[ClaimsAuthorize("Causa", "Add")]
-        [Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<CausaViewModel>> Adicionar(CausaViewModel causaViewModel)
         {
@@ -64,8 +61,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(causaViewModel);
         }
 
-        //[ClaimsAuthorize("Causa", "Upd")]
-        [Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<CausaViewModel>> Atualizar(Guid id, CausaViewModel causaViewModel)
         {
@@ -82,8 +78,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
             return CustomResponse(causaViewModel);
         }
 
-        //[ClaimsAuthorize("Causa", "Del")]
-        [Authorize(Roles = "operador")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<CausaViewModel>> Remover(Guid id)
         {
