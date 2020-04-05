@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h5 class="modal-title">Detalhes da RNC</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p><strong>Ocorrência: </strong><span>{{ rnc.ocorrencia }}</span></p>
+    <p><strong>Descrição: </strong><span>{{ rnc.descricao }}</span></p>
+    <p><strong>Gravidade: </strong><span>{{ rnc.gravidade?.nome }}</span></p>
+    <p><strong>Causa: </strong><span>{{ rnc.causa?.nome }}</span></p>
+    <p><strong>Ação: </strong><span>{{ rnc.acao?.nome }}</span></p>
+    <p><strong>Data da Ocorrência: </strong><span>{{ rnc.dataOcorrencia | date: "dd/MM/yyyy hh:mm" }}</span></p>
+    <p><strong>Prazo: </strong><span>{{ rnc.prazo | date: "dd/MM/yyyy hh:mm" }}</span></p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fechar</button>
+</div>

@@ -8,7 +8,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models.Validations
         {
             RuleFor(a => a.Nome)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
-                .Length(10, 100)
+                .Length(5, 100)
                 .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
         }
     }

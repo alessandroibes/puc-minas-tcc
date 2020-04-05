@@ -36,14 +36,14 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
         [HttpGet]
         public async Task<IEnumerable<RNCViewModel>> ObterTodos()
         {
-            return _mapper.Map<IEnumerable<RNCViewModel>>(await _rncRepository.ObterTodos());
+            return _mapper.Map<IEnumerable<RNCViewModel>>(await _rncRepository.ObterRNCComObjetos());
         }
 
         [Authorize(Roles = "gerente,engenheiro")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<RNCViewModel>> ObterPorId(Guid id)
         {
-            var rnc = _mapper.Map<RNCViewModel>(await _rncRepository.ObterPorId(id));
+            var rnc = _mapper.Map<RNCViewModel>(await _rncRepository.ObterRNCPorIdComObjetos(id));
 
             if (rnc == null) return NotFound();
 

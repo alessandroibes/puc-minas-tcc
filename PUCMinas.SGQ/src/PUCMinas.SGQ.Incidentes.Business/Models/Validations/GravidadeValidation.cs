@@ -8,12 +8,12 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models.Validations
         {
             RuleFor(g => g.Nome)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
-                .Length(10, 100)
+                .Length(5, 100)
                 .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(g => g.Descricao)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
-                .Length(10, 1000)
+                .Length(5, 1000)
                 .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
         }
     }

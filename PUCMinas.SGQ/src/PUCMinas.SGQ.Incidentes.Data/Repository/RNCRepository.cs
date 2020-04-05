@@ -3,6 +3,7 @@ using PUCMinas.SGQ.Core.Data.Repository;
 using PUCMinas.SGQ.Incidentes.Business.Interfaces;
 using PUCMinas.SGQ.Incidentes.Business.Models;
 using PUCMinas.SGQ.Incidentes.Data.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +14,31 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
     {
         public RNCRepository(IncidentesDbContext context) : base(context) { }
 
+        public async Task<IEnumerable<RNC>> ObterRNCComObjetos()
+        {
+            return await (Db as IncidentesDbContext).RNCs.AsNoTracking()
+                .Include(g => g.Gravidade)
+                .Include(c => c.Causa)
+                .Include(a => a.Acao)
+                .OrderBy(i => i.Prazo).ToListAsync();
+        }
+
+        public async Task<RNC> ObterRNCPorIdComObjetos(Guid id)
+        {
+            return await (Db as IncidentesDbContext).RNCs.AsNoTracking()
+                .Include(g => g.Gravidade)
+                .Include(c => c.Causa)
+                .Include(a => a.Acao)
+                .FirstOrDefaultAsync(r => r.Id == id);
+        }
+
         public async Task<IEnumerable<RNC>> ObterRNCPorStatus(StatusRNC status)
         {
-            return await (Db as IncidentesDbContext).RNCs.AsNoTracking().Include(i => i.Status == status)
+            return await (Db as IncidentesDbContext).RNCs.AsNoTracking()
+                .Include(i => i.Status == status)
+                .Include(g => g.Gravidade)
+                .Include(c => c.Causa)
+                .Include(a => a.Acao)
                 .OrderBy(i => i.Prazo).ToListAsync();
         }
     }

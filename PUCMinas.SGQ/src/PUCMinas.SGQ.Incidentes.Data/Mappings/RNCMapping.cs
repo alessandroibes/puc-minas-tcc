@@ -11,11 +11,18 @@ namespace PUCMinas.SGQ.Incidentes.Data.Mappings
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Ocorrencia)
-                .IsRequired()
+                .IsRequired(true)
                 .HasColumnType("varchar(200)");
 
             builder.Property(p => p.Descricao)
+                .IsRequired(false)
                 .HasColumnType("varchar(1000)");
+
+            builder.Property(p => p.GerenteCriador)
+                .IsRequired(true);
+
+            builder.Property(p => p.EngenheiroResponsavel)
+                .IsRequired(false);
 
             // 1 : N => RNC : Gravidade
             builder.HasOne(p => p.Gravidade)

@@ -11,10 +11,11 @@ namespace PUCMinas.SGQ.Incidentes.Data.Mappings
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Nome)
-                .IsRequired()
+                .IsRequired(true)
                 .HasColumnType("varchar(100)");
 
             builder.Property(p => p.Descricao)
+                .IsRequired(false)
                 .HasColumnType("varchar(1000)");
 
             builder.ToTable("Gravidades");

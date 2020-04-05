@@ -16,12 +16,6 @@ namespace PUCMinas.SGQ.Incidentes.Business.Models.Validations
             RuleFor(p => p.Classificacao)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(p => p.EngenheiroResponsavel)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
-
-            RuleFor(p => p.GestorAvaliador)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
-
             RuleFor(p => p.Status)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 

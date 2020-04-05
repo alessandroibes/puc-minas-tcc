@@ -20,26 +20,19 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.ViewModels
         public ClassificacaoRNC Classificacao { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public Guid EngenheiroResponsavel { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public Guid GestorAvaliador { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public StatusRNC Status { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public Guid GravidadeId { get; set; }
+        public GravidadeViewModel Gravidade { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public Guid CausaId { get; set; }
+        public CausaViewModel Causa { get; set; }
 
-        public Guid? AcaoId { get; set; }
+        public AcaoViewModel Acao { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime Prazo { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime DataOcorrencia { get; set; }
     }
 }

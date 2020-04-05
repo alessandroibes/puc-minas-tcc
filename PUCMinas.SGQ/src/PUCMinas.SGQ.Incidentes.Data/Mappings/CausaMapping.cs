@@ -11,7 +11,7 @@ namespace PUCMinas.SGQ.Incidentes.Data.Mappings
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Nome)
-                .IsRequired()
+                .IsRequired(true)
                 .HasColumnType("varchar(100)");
 
             builder.ToTable("Causas");

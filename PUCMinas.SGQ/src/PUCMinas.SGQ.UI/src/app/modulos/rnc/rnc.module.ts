@@ -5,16 +5,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { CoreModule } from '../core/core.module';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ListarRNCComponent } from './listar-rnc/listar-rnc.component';
 import { ManterRNCComponent } from './manter-rnc/manter-rnc.component';
+import { DetalharRNCModalComponent } from './detalhar-rnc/detalhar-rnc-modal.component';
 
 import { RNCService } from './services/rnc.service';
+
+
 
 @NgModule({
     declarations: [
         ListarRNCComponent,
-        ManterRNCComponent
+        ManterRNCComponent,
+        DetalharRNCModalComponent
     ],
     imports: [
         CommonModule,
@@ -22,7 +27,8 @@ import { RNCService } from './services/rnc.service';
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        CoreModule
+        CoreModule,
+        NgbAlertModule
     ],
     providers: [
         RNCService

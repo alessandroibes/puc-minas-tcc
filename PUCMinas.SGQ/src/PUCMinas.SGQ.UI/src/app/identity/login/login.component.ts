@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.identityService.login(this.f.username.value, this.f.password.value)
                 .pipe(first())
                 .subscribe(
-                    data => {
+                    result => {
                         this.router.navigate([this.returnUrl]);
                     },
                     data => {

@@ -1,15 +1,16 @@
-import { Guid } from 'guid-typescript';
+import { Causa } from './causa';
+import { Acao } from './acao';
+import { Gravidade } from './gravidade';
 
-export interface RNC {
-    id: Guid,
-    ocorrencia: string,
-    descricao: string,
-    classificacao: number,
-    engenheiroResponsavel: Guid,
-    gestorAvaliador: Guid,
-    status: number,
-    gravidadeId: Guid,
-    causaId: Guid,
-    acaoId: Guid,
-    dataOcorrencia: Date
+export class RNC {
+    id: string;
+    ocorrencia: string;
+    descricao: string;
+    classificacao: number;
+    status: number;
+    gravidade: Gravidade;
+    causa: Causa;
+    acao: Acao;
+    prazo: Date;
+    dataOcorrencia: Date;
 }

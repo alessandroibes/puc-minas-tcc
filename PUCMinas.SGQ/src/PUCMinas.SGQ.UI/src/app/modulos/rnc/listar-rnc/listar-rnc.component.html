@@ -17,6 +17,8 @@
                 <td class="text-center">
                     <button [routerLink]="['/atualizar-rnc', rnc.id]" class="fa fa-pencil fa-lg">
                     </button>&nbsp;
+                    <button class="fa fa-list-alt fa-lg" (click)="detalhesModal(rnc)">
+                    </button>&nbsp;
                     <button class="fa fa-trash fa-lg" alt="Excluir">
                     </button>
                 </td>

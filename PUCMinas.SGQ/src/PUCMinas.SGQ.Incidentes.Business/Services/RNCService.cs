@@ -21,9 +21,19 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
 
         public async Task<bool> Adicionar(RNC rnc)
         {
+            rnc.GerenteCriador = _user.GetUserId();
+            rnc.DataOcorrencia = DateTime.Now;
+            rnc.Gravidade = null;
+            rnc.Causa = null;
+            rnc.Acao = null;
+
             if (!ExecutarValidacao(new RNCValidation(), rnc)) return false;
 
-            rnc.GerenteCriador = _user.GetUserId();
+            if (!_user.IsInRole("gerente"))
+            {
+                Notificar("Somente um gerente de qualidade pode criar uma RNC.");
+                return false;
+            }
 
             await _rncRepository.Adicionar(rnc);
             return true;
@@ -31,8 +41,6 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
 
         public async Task<bool> Atualizar(RNC rnc)
         {
-            if (!ExecutarValidacao(new RNCValidation(), rnc)) return false;
-
             var rncAnterior = await _rncRepository.ObterPorId(rnc.Id);
 
             if (rncAnterior == null)
@@ -40,6 +48,12 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                 Notificar("RNC não encontrada.");
                 return false;
             }
+
+            rnc.GerenteCriador = rncAnterior.GerenteCriador;
+            rnc.EngenheiroResponsavel = rncAnterior.EngenheiroResponsavel;
+            rnc.DataOcorrencia = rncAnterior.DataOcorrencia;
+
+            if (!ExecutarValidacao(new RNCValidation(), rnc)) return false;
 
             // Casos de Uso possíveis "AlterarRNC" e "RevolverRNC"
             if (rncAnterior.Status == StatusRNC.Aberta)
@@ -58,6 +72,9 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                         Notificar("Status inconsistente. Não é possível confirmar a resolução de uma RNC aberta.");
                         return false;
                     }
+
+                    // Define o Engenheiro responsável
+                    rnc.EngenheiroResponsavel = _user.GetUserId();
                 }
 
                 if (rnc.Status == StatusRNC.AguardandoConfirmacao)
@@ -80,6 +97,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                     return false;
                 }
 
+                // Redefine o Engenheiro responsável
                 rnc.EngenheiroResponsavel = _user.GetUserId();
             }
             // Caso de Uso possível "ConfirmarResolucaoRNC"
@@ -101,7 +119,6 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                 }
 
                 rnc.DataFechamento = DateTime.Now;
-                rnc.GestorAvaliador = _user.GetUserId();
             }
             else
             {

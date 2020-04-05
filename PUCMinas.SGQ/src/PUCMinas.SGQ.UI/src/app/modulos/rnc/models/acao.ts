@@ -1,6 +1,4 @@
-import { Guid } from "guid-typescript";
-
-export interface Acao {
-    id: Guid,
-    nome: string
+export class Acao {
+    id: string;
+    nome: string;
 }
