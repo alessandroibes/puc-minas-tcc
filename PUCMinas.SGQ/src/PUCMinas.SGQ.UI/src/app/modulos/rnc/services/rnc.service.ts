@@ -20,26 +20,26 @@ export class RNCService extends BaseService {
 
     // Gravidade
     getGravidade(): Observable<Gravidade[]> {
-        return this.http.get<Gravidade[]>(this.config.apiIncidentesAddress + "v1/gravidade");
+        return this.http.get<Gravidade[]>(this.config.apiIncidentesAddress + "v1/gravidade").pipe(catchError(this.handleError));
     }
 
     // Causa
     getCausa(): Observable<Causa[]> {
-        return this.http.get<Causa[]>(this.config.apiIncidentesAddress + "v1/causas");
+        return this.http.get<Causa[]>(this.config.apiIncidentesAddress + "v1/causas").pipe(catchError(this.handleError));
     }
 
     // Acao
     getAcao(): Observable<Acao[]> {
-        return this.http.get<Causa[]>(this.config.apiIncidentesAddress + "v1/acoes");
+        return this.http.get<Causa[]>(this.config.apiIncidentesAddress + "v1/acoes").pipe(catchError(this.handleError));
     }
 
     // RNC
     getRNC(): Observable<RNC[]> {
-        return this.http.get<RNC[]>(this.config.apiIncidentesAddress + "v1/rncs");
+        return this.http.get<RNC[]>(this.config.apiIncidentesAddress + "v1/rncs").pipe(catchError(this.handleError));
     }
 
     getRNCPorId(id: string): Observable<RNC> {
-        return this.http.get<RNC>(this.config.apiIncidentesAddress + "v1/rncs/" + id);
+        return this.http.get<RNC>(this.config.apiIncidentesAddress + "v1/rncs/" + id).pipe(catchError(this.handleError));
     }
 
     addRNC(rnc: RNC): Observable<any> {

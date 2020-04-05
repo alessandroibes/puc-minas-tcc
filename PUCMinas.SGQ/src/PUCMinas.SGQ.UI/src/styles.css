@@ -9,6 +9,16 @@
     overflow: hidden;
  }
 
+ .login-container {
+  padding-top: 0px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 60px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+ }
+
  .footer {
   height: 50px;
   text-align: center;

@@ -1,33 +1,29 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChildren } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControlName } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, ElementRef } from "@angular/core";
+import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IdentityService } from '../services/identity.service';
-import { first } from 'rxjs/operators';
-import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/modulos/core/generic-form-validation';
+
 import { Observable, fromEvent, merge } from 'rxjs';
-import { AlertService } from 'src/app/modulos/core/services/alert.service';
+import { first } from 'rxjs/operators';
+
+import { BaseCadastroComponent } from "../../modulos/core/base/base-cadastro.component";
+
+import { IdentityService } from '../services/identity.service';
+import { GenericValidator } from "../../modulos/core/generic-form-validation";
+
 import { User } from '../models/user';
 
 @Component({
     templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit, AfterViewInit {
-    loginForm: FormGroup;
+export class LoginComponent extends BaseCadastroComponent implements OnInit, AfterViewInit {
     returnUrl: string;
-    loading = false;
-
-    @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
-    validationMessages: ValidationMessages;
-    genericValidator: GenericValidator;
-    displayMessage: DisplayMessage = {};
-    mudancasNaoSalvas: boolean;
     currentUser: User;
 
     constructor(private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
+        route: ActivatedRoute,
         private identityService: IdentityService,
-        private router: Router,
-        private alertService: AlertService) {
+        private router: Router) {
+        super(route);
 
         this.identityService.currentUser.subscribe(x => this.currentUser = x);
 
@@ -49,7 +45,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.loginForm = this.formBuilder.group({
+        this.formulario = this.formBuilder.group({
             username: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
@@ -63,28 +59,32 @@ export class LoginComponent implements OnInit, AfterViewInit {
             .map((FormControl: ElementRef) => fromEvent(FormControl.nativeElement, 'blur'));
 
         merge(...controlBlurs).subscribe(() => {
-            this.displayMessage = this.genericValidator.processarMensagem(this.loginForm);
+            this.displayMessage = this.genericValidator.processarMensagem(this.formulario);
             this.mudancasNaoSalvas = true;
         });
     }
 
-    get f() { return this.loginForm.controls; }
-
     onSubmit() {
-        if (this.loginForm.dirty && this.loginForm.valid) {
-            this.loading = true;
-            this.identityService.login(this.f.username.value, this.f.password.value)
-                .pipe(first())
-                .subscribe(
-                    result => {
-                        this.router.navigate([this.returnUrl]);
-                    },
-                    data => {
-                        this.alertService.error(data.error.errors[0]);
-                        this.loading = false;
-                    });
+        try {
+            if (this.formulario.dirty && this.formulario.valid) {
+                this.loading = true;
+                this.identityService.login(this.f.username.value, this.f.password.value)
+                    .pipe(first())
+                    .subscribe(
+                        result => {
+                            this.router.navigate([this.returnUrl]);
+                        },
+                        error => {
+                            this.alerts = Array.from([{ type: 'danger', message: error }]);
+                            this.loading = false;
+                        });
 
-            this.mudancasNaoSalvas = false;
+                this.mudancasNaoSalvas = false;
+            }
+        } catch (e) {
+            this.loading = false;
+            this.alerts = Array.from([{ type: 'danger', message: 'Erro ao tentar logar na aplicação.' }]);
+            console.log('Erro na aplicação: ' + e)
         }
     }
 }

@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CoreModule } from '../modulos/core/core.module';
+import { NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { LoginComponent } from './login/login.component';
 
@@ -21,7 +22,8 @@ import { JwtInterceptor } from './services/jwt.interceptor';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        CoreModule
+        CoreModule,
+        NgbAlertModule
     ],
     providers: [
         IdentityService,

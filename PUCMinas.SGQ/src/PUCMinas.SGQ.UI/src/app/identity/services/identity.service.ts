@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigService } from 'src/app/modulos/core/services/config.services';
-import { map } from 'rxjs/operators';
+
+import { map, catchError } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { User } from '../models/user'
+
+import { ConfigService } from '../../modulos/core/services/config.services';
+import { BaseService } from 'src/app/modulos/core/services/base.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class IdentityService {
+export class IdentityService extends BaseService {
     private loggedUser: User;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient, private config: ConfigService) {
+    constructor(private http: HttpClient,
+        private config: ConfigService) {
+        super();
+
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -62,7 +69,7 @@ export class IdentityService {
                 }
 
                 return this.loggedUser;
-            }));
+            })).pipe(catchError(this.handleError));
     }
 
     logout() {

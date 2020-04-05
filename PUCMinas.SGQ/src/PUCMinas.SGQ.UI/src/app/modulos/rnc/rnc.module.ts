@@ -13,8 +13,6 @@ import { DetalharRNCModalComponent } from './detalhar-rnc/detalhar-rnc-modal.com
 
 import { RNCService } from './services/rnc.service';
 
-
-
 @NgModule({
     declarations: [
         ListarRNCComponent,

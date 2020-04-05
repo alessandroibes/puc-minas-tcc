@@ -18,7 +18,7 @@ export abstract class BaseService {
         if (error.error != null) {
             // for now just concatenate the error descriptions, alternative we could simply pass the entire error response upstream
             for (var key in error.error.errors) {
-                if (error.error.errors[key][0]) modelStateErrors += error.error.errors[key][0] + '\n';
+                if (error.error.errors[key]) modelStateErrors += error.error.errors[key] + '\n';
             }
         }
 

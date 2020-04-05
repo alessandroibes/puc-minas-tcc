@@ -1,12 +1,11 @@
 <div class="container main-container">
-    <alert></alert>
     <p *ngFor="let alert of alerts">
         <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
     </p>
     <h6>RNC - Registro de Não Conformidade</h6>
     <hr />
-    <div [hidden]="submitted">
-        <form novalidate (ngSubmit)="onSubmit()" [formGroup]="rncForm">
+    <div>
+        <form novalidate (ngSubmit)="onSubmit()" [formGroup]="formulario">
             <div class="form-horizontal">
 
                 <div class="form-group">
@@ -87,7 +86,7 @@
 
                 <div class="form-group">
                     <div class="col-md-10">
-                        <button [disabled]="!rncForm.valid || loading" class="btn btn-primary">
+                        <button [disabled]="!formulario.valid || loading" class="btn btn-primary">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                             Gravar
                         </button>

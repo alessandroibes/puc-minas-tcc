@@ -1,46 +1,32 @@
-import { OnInit, Component, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
-import { ValidationMessages, DisplayMessage, GenericValidator } from '../../core/generic-form-validation';
-import { Observable, fromEvent, merge } from 'rxjs';
+import { OnInit, Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { GenericValidator } from '../../core/generic-form-validation';
 import { ActivatedRoute } from '@angular/router';
 import { RNCService } from '../services/rnc.service';
 import { RNC } from '../models/rnc';
-import { AlertService } from '../../core/services/alert.service';
 import { Gravidade } from '../models/gravidade';
 import { Causa } from '../models/causa';
 import { Acao } from '../models/acao';
-import { Alert } from '../../core/models/alert';
 import { Guid } from 'guid-typescript';
+import { BaseCadastroComponent } from '../../core/base/base-cadastro.component';
 
 @Component({
     selector: 'manter-rnc',
     templateUrl: './manter-rnc.component.html'
 })
-export class ManterRNCComponent implements OnInit, AfterViewInit {
-    submitted = false;
-    loading = false;
-
-    rncForm: FormGroup;
-    formResult: string = '';
-    id: string;
+export class ManterRNCComponent extends BaseCadastroComponent implements OnInit {
+    //id: string;
     rnc: RNC;
     classificacao = [];
     gravidades: Gravidade[];
     causas: Causa[];
     acoes: Acao[];
-    alerts: Alert[];
-
-    @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
-
-    validationMessages: ValidationMessages;
-    genericValidator: GenericValidator;
-    displayMessage: DisplayMessage = {};
-    mudancasNaoSalvas: boolean;
 
     constructor(private fb: FormBuilder,
-        private route: ActivatedRoute,
-        private rncService: RNCService,
-        private alertService: AlertService) {
+        route: ActivatedRoute,
+        private rncService: RNCService) {
+        super(route);
+
         this.classificacao = [
             { value: '1', label: 'Já Ocorrido' },
             { value: '2', label: 'Oportunidade de Melhoria' },
@@ -63,84 +49,20 @@ export class ManterRNCComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.rncService.getGravidade().subscribe(result => {
-            this.gravidades = result as Gravidade[];
-        }, error => {
-            console.log(error);
-            this.alertService.error(error.error.errors[0]);
-        });
-
-        this.rncService.getCausa().subscribe(result => {
-            this.causas = result as Causa[];
-        }, error => {
-            console.log(error);
-            this.alertService.error(error.error.errors[0]);
-        });
-
-        this.rncService.getAcao().subscribe(result => {
-            this.acoes = result as Acao[];
-        }, error => {
-            console.log(error);
-            this.alertService.error(error.error.errors[0]);
-        });
-
-        let definido: boolean = false;
-        this.id = this.route.snapshot.paramMap.get("id");
-        if (this.id == null) {
-            // criar
-        }
-        else {
-            this.rncService.getRNCPorId(this.id)
-                .subscribe(
-                    result => {
-                        this.rnc = result as RNC;
-
-                        if (this.rnc) {
-                            definido = true;
-                            this.rncForm = this.fb.group({
-                                ocorrencia: [this.rnc.ocorrencia, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
-                                descricao: [this.rnc.descricao, [Validators.minLength(5), Validators.maxLength(1000)]],
-                                classificacao: [this.rnc.classificacao ? this.rnc.classificacao : null],
-                                gravidade: [this.rnc.gravidade ? this.rnc.gravidade.id : null],
-                                causa: [this.rnc.causa ? this.rnc.causa.id : null],
-                                acao: [this.rnc.acao ? this.rnc.acao.id : null],
-                                prazo: ['']
-                            });
-                        }
-                    }, error => {
-                        console.log(error);
-                        this.alertService.error(error.error.errors[0]);
-                    });
-        }
-
-        if (!definido) {
-            this.rncForm = this.fb.group({
-                ocorrencia: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
-                descricao: [null, [Validators.minLength(5), Validators.maxLength(1000)]],
-                classificacao: [null],
-                gravidade: [null],
-                causa: [null],
-                acao: [null],
-                prazo: [1]
-            });
+        try {
+            this.carregarGravidades();
+            this.carregarCausas();
+            this.carregarAcoes();
+            this.carregarRNCs();
+        } catch (e) {
+            this.alerts = Array.from([{ type: 'danger', message: 'Erro ao tentar carregar o formulário.' }]);
+            console.log('Erro na aplicação: ' + e)
         }
     }
-
-    ngAfterViewInit(): void {
-        let controlBlurs: Observable<any>[] = this.formInputElements
-            .map((FormControl: ElementRef) => fromEvent(FormControl.nativeElement, 'blur'));
-
-        merge(...controlBlurs).subscribe(() => {
-            this.displayMessage = this.genericValidator.processarMensagem(this.rncForm);
-            this.mudancasNaoSalvas = true;
-        });
-    }
-
-    get f() { return this.rncForm.controls; }
 
     onSubmit() {
         try {
-            if (this.rncForm.dirty && this.rncForm.valid) {
+            if (this.formulario.dirty && this.formulario.valid) {
                 this.loading = true;
                 if (this.rnc == null) {
                     this.rnc = new RNC();
@@ -178,11 +100,72 @@ export class ManterRNCComponent implements OnInit, AfterViewInit {
         }
     }
 
+    carregarGravidades() {
+        this.rncService.getGravidade().subscribe(result => {
+            this.gravidades = result as Gravidade[];
+        }, error => {
+            this.alerts = Array.from([{ type: 'danger', message: error }]);
+        });
+    }
+
+    carregarCausas() {
+        this.rncService.getCausa().subscribe(result => {
+            this.causas = result as Causa[];
+        }, error => {
+            this.alerts = Array.from([{ type: 'danger', message: error }]);
+        });
+    }
+
+    carregarAcoes() {
+        this.rncService.getAcao().subscribe(result => {
+            this.acoes = result as Acao[];
+        }, error => {
+            this.alerts = Array.from([{ type: 'danger', message: error }]);
+        });
+    }
+
+    carregarRNCs() {
+        let definido: boolean = false;
+        if (this.id != null) { // Alterar
+            this.rncService.getRNCPorId(this.id)
+                .subscribe(
+                    result => {
+                        this.rnc = result as RNC;
+                        if (this.rnc) {
+                            definido = true;
+                            this.formulario = this.fb.group({
+                                ocorrencia: [this.rnc.ocorrencia, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
+                                descricao: [this.rnc.descricao, [Validators.minLength(5), Validators.maxLength(1000)]],
+                                classificacao: [this.rnc.classificacao ? this.rnc.classificacao : null],
+                                gravidade: [this.rnc.gravidade ? this.rnc.gravidade.id : null],
+                                causa: [this.rnc.causa ? this.rnc.causa.id : null],
+                                acao: [this.rnc.acao ? this.rnc.acao.id : null],
+                                prazo: ['']
+                            });
+                        }
+                    }, error => {
+                        this.alerts = Array.from([{ type: 'danger', message: error }]);
+                    });
+        }
+
+        if (!definido) {
+            this.formulario = this.fb.group({
+                ocorrencia: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
+                descricao: [null, [Validators.minLength(5), Validators.maxLength(1000)]],
+                classificacao: [null],
+                gravidade: [null],
+                causa: [null],
+                acao: [null],
+                prazo: [1]
+            });
+        }
+    }
+
     criarRNC() {
         this.rncService.addRNC(this.rnc).subscribe(result => {
             this.loading = false;
             this.alerts = Array.from([{ type: 'success', message: 'Nova RNC criada com sucesso!' }]);
-            this.rncForm.reset();
+            this.formulario.reset();
         }, error => {
             this.loading = false;
             this.alerts = Array.from([{ type: 'danger', message: error }]);
@@ -191,13 +174,5 @@ export class ManterRNCComponent implements OnInit, AfterViewInit {
 
     atualizarRNC() {
 
-    }
-
-    closeAlert(alert: Alert) {
-        this.alerts.splice(this.alerts.indexOf(alert), 1);
-    }
-
-    clearAlerts() {
-        this.alerts = [];
     }
 }

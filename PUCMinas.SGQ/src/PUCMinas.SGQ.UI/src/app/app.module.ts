@@ -12,7 +12,8 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AppRoutingModule } from './app.routes';
 import { RNCModule } from './modulos/rnc/rnc.module';
 import { IdentityModule } from './identity/Identity.module';
-import { CoreModule } from './modulos/core/core.module';
+
+import { CadastroGuard } from './modulos/core/services/cadastro.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { CoreModule } from './modulos/core/core.module';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    CadastroGuard
+  ],
   exports: [],
   bootstrap: [AppComponent]
 })
