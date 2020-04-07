@@ -14,9 +14,9 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
 
         public async Task<Gravidade> ObterGravidadeComRNCs(Guid id)
         {
-            return await (Db as IncidentesDbContext).Gravidades
-                .AsNoTracking()
+            return await (Db as IncidentesDbContext).Gravidades                
                 .Include(a => a.RNCs)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
     }

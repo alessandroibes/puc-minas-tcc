@@ -15,8 +15,8 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
         public async Task<Causa> ObterCausaComRNCs(Guid id)
         {
             return await(Db as IncidentesDbContext).Causas
-                .AsNoTracking()
                 .Include(a => a.RNCs)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
     }

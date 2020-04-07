@@ -16,30 +16,35 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
 
         public async Task<IEnumerable<RNC>> ObterRNCComObjetos()
         {
-            return await (Db as IncidentesDbContext).RNCs.AsNoTracking()
+            return await (Db as IncidentesDbContext).RNCs
                 .Include(g => g.Gravidade)
                 .Include(c => c.Causa)
-                .Include(a => a.Acao)
-                .OrderBy(i => i.Prazo).ToListAsync();
+                .Include(a => a.Acao)                
+                .OrderBy(i => i.Prazo)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<RNC> ObterRNCPorIdComObjetos(Guid id)
         {
-            return await (Db as IncidentesDbContext).RNCs.AsNoTracking()
+            return await (Db as IncidentesDbContext).RNCs
                 .Include(g => g.Gravidade)
                 .Include(c => c.Causa)
                 .Include(a => a.Acao)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<IEnumerable<RNC>> ObterRNCPorStatus(StatusRNC status)
         {
-            return await (Db as IncidentesDbContext).RNCs.AsNoTracking()
+            return await (Db as IncidentesDbContext).RNCs
                 .Include(i => i.Status == status)
                 .Include(g => g.Gravidade)
                 .Include(c => c.Causa)
                 .Include(a => a.Acao)
-                .OrderBy(i => i.Prazo).ToListAsync();
+                .OrderBy(i => i.Prazo)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

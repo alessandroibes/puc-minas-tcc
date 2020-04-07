@@ -21,11 +21,12 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
     gravidades: Gravidade[];
     causas: Causa[];
     acoes: Acao[];
+    id: string;
 
     constructor(private fb: FormBuilder,
-        route: ActivatedRoute,
+        private route: ActivatedRoute,
         private rncService: RNCService) {
-        super(route);
+        super()
 
         this.classificacao = [
             { value: '1', label: 'Já Ocorrido' },
@@ -49,6 +50,7 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
     }
 
     ngOnInit(): void {
+        this.id = this.route.snapshot.paramMap.get("id");
         try {
             this.carregarGravidades();
             this.carregarCausas();
@@ -74,14 +76,14 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
                 this.rnc.gravidade = this.gravidades.find(g => g.id == this.f.gravidade.value);
                 this.rnc.causa = this.causas.find(g => g.id == this.f.causa.value);
                 this.rnc.acao = this.acoes.find(g => g.id == this.f.acao.value);
-                let prazoCalculado = Date.now();
+                let dataOcorrencia = new Date(this.rnc.dataOcorrencia).getTime();
                 // 86400000 milessegundos corresponde a 1 dia
                 if (this.f.prazo.value) {
-                    prazoCalculado = prazoCalculado + (this.f.prazo.value * 86400000);
-                    this.rnc.prazo = new Date(prazoCalculado);
+                    dataOcorrencia = dataOcorrencia + (this.f.prazo.value * 86400000);
+                    this.rnc.prazo = new Date(dataOcorrencia);
                 } else {
-                    prazoCalculado = prazoCalculado + 86400000;
-                    this.rnc.prazo = new Date(prazoCalculado);
+                    dataOcorrencia = dataOcorrencia + 86400000;
+                    this.rnc.prazo = new Date(dataOcorrencia);
                 }
                 if (this.id == null) {
                     this.rnc.id = Guid.EMPTY;
@@ -133,6 +135,9 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
                         this.rnc = result as RNC;
                         if (this.rnc) {
                             definido = true;
+                            let p = new Date(this.rnc.prazo).getTime();
+                            let o = new Date(this.rnc.dataOcorrencia).getTime();
+                            let num = Number.parseInt(((p - o) / 86400000).toString());
                             this.formulario = this.fb.group({
                                 ocorrencia: [this.rnc.ocorrencia, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
                                 descricao: [this.rnc.descricao, [Validators.minLength(5), Validators.maxLength(1000)]],
@@ -140,7 +145,7 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
                                 gravidade: [this.rnc.gravidade ? this.rnc.gravidade.id : null],
                                 causa: [this.rnc.causa ? this.rnc.causa.id : null],
                                 acao: [this.rnc.acao ? this.rnc.acao.id : null],
-                                prazo: ['']
+                                prazo: [num]
                             });
                         }
                     }, error => {
@@ -173,6 +178,13 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
     }
 
     atualizarRNC() {
-
+        this.rncService.updateRNC(this.rnc, this.id).subscribe(result => {
+            this.loading = false;
+            this.alerts = Array.from([{ type: 'success', message: 'RNC alterada com sucesso!' }]);
+            this.formulario.reset();
+        }, error => {
+            this.loading = false;
+            this.alerts = Array.from([{ type: 'danger', message: error }]);
+        });
     }
 }

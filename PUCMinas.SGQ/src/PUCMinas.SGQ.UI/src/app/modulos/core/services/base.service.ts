@@ -8,6 +8,19 @@ export abstract class BaseService {
 
         var applicationError = error.headers.get('Application-Error');
 
+        // Teste
+        switch (error.status) {
+            case 401:
+                console.log('401 - Usuário Não autorizado.')
+                break;
+            case 403:
+                console.log('403 - Acesso proibido.')
+                break;
+            case 404:
+                console.log('404 - Página não encontrada.')
+                break;
+        }
+
         // either application-error in header or model error in body
         if (applicationError) {
             return throwError(applicationError);

@@ -14,9 +14,9 @@ namespace PUCMinas.SGQ.Incidentes.Data.Repository
 
         public async Task<Acao> ObterAcaoComRNCs(Guid id)
         {
-            return await (Db as IncidentesDbContext).Acoes
-                .AsNoTracking()
+            return await (Db as IncidentesDbContext).Acoes                
                 .Include(a => a.RNCs)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
     }

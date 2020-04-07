@@ -9,15 +9,15 @@ import { ManterRNCComponent } from './modulos/rnc/manter-rnc/manter-rnc.componen
 
 import { AuthenticatedGuard } from './identity/services/authenticated.guard';
 import { AdminGuard } from './identity/services/admin.guard';
-import { CadastroGuard } from './modulos/core/services/cadastro.guard';
+import { IsPristineGuard } from './modulos/core/alerts/ui-confirm.module';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, canActivate: [AuthenticatedGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'listar-rnc', component: ListarRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
-    { path: 'criar-rnc', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [CadastroGuard] },
-    { path: 'atualizar-rnc/:id', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [CadastroGuard] },
+    { path: 'criar-rnc', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
+    { path: 'atualizar-rnc/:id', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
 
     // otherwise redirect to 404 page
     { path: '**', component: NotFoundComponent }

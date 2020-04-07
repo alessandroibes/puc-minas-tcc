@@ -12,8 +12,7 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AppRoutingModule } from './app.routes';
 import { RNCModule } from './modulos/rnc/rnc.module';
 import { IdentityModule } from './identity/Identity.module';
-
-import { CadastroGuard } from './modulos/core/services/cadastro.guard';
+import { UiConfirmModule } from './modulos/core/alerts/ui-confirm.module';
 
 @NgModule({
   declarations: [
@@ -26,10 +25,11 @@ import { CadastroGuard } from './modulos/core/services/cadastro.guard';
     IdentityModule,
     RNCModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UiConfirmModule
   ],
   providers: [
-    CadastroGuard
+
   ],
   exports: [],
   bootstrap: [AppComponent]

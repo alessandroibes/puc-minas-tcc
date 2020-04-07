@@ -20,10 +20,10 @@ export class LoginComponent extends BaseCadastroComponent implements OnInit, Aft
     currentUser: User;
 
     constructor(private formBuilder: FormBuilder,
-        route: ActivatedRoute,
+        private route: ActivatedRoute,
         private identityService: IdentityService,
         private router: Router) {
-        super(route);
+        super();
 
         this.identityService.currentUser.subscribe(x => this.currentUser = x);
 

@@ -1,32 +1,29 @@
 import { ElementRef, ViewChildren, OnInit, AfterViewInit } from "@angular/core";
 import { FormControlName, FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
 
 import { Observable, fromEvent, merge } from "rxjs";
 
 import { Alert } from "../models/alert";
 import { ValidationMessages, GenericValidator, DisplayMessage } from "../generic-form-validation";
+import { IsPristineAware } from '../alerts/ui-confirm.module';
 
-export class BaseCadastroComponent implements OnInit, AfterViewInit {
+export class BaseCadastroComponent implements AfterViewInit, IsPristineAware {
     mudancasNaoSalvas: boolean;
     alerts: Alert[];
     loading = false;
-    id: string;
 
     formulario: FormGroup;
     validationMessages: ValidationMessages;
     genericValidator: GenericValidator;
     displayMessage: DisplayMessage = {};
 
-    constructor(protected route: ActivatedRoute) { }
+    isPristine(): boolean {
+        return !this.mudancasNaoSalvas;
+    }
 
     get f() { return this.formulario.controls; }
 
     @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
-
-    ngOnInit(): void {
-        this.id = this.route.snapshot.paramMap.get("id");
-    }
 
     ngAfterViewInit(): void {
         let controlBlurs: Observable<any>[] = this.formInputElements

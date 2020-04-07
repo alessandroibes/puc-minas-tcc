@@ -49,9 +49,13 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                 return false;
             }
 
-            rnc.GerenteCriador = rncAnterior.GerenteCriador;
-            rnc.EngenheiroResponsavel = rncAnterior.EngenheiroResponsavel;
-            rnc.DataOcorrencia = rncAnterior.DataOcorrencia;
+            rncAnterior.Ocorrencia = rnc.Ocorrencia;
+            rncAnterior.Descricao = rnc.Descricao;
+            rncAnterior.Classificacao = rnc.Classificacao;
+            rncAnterior.GravidadeId = rnc.GravidadeId;
+            rncAnterior.CausaId = rnc.CausaId;
+            rncAnterior.AcaoId = rnc.AcaoId;
+            rncAnterior.Prazo = rnc.Prazo;
 
             if (!ExecutarValidacao(new RNCValidation(), rnc)) return false;
 
@@ -74,12 +78,12 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                     }
 
                     // Define o Engenheiro responsável
-                    rnc.EngenheiroResponsavel = _user.GetUserId();
+                    rncAnterior.EngenheiroResponsavel = _user.GetUserId();
                 }
 
                 if (rnc.Status == StatusRNC.AguardandoConfirmacao)
                 {
-                    rnc.DataResolucao = DateTime.Now;
+                    rncAnterior.DataResolucao = DateTime.Now;
                 }
             }
             // Caso de Uso possível "CorrigirRNC"
@@ -98,7 +102,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                 }
 
                 // Redefine o Engenheiro responsável
-                rnc.EngenheiroResponsavel = _user.GetUserId();
+                rncAnterior.EngenheiroResponsavel = _user.GetUserId();
             }
             // Caso de Uso possível "ConfirmarResolucaoRNC"
             else if (rncAnterior.Status == StatusRNC.AguardandoConfirmacao)
@@ -118,7 +122,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                     return false;
                 }
 
-                rnc.DataFechamento = DateTime.Now;
+                rncAnterior.DataFechamento = DateTime.Now;
             }
             else
             {
@@ -126,7 +130,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
                 return false;
             }
 
-            await _rncRepository.Atualizar(rnc);
+            await _rncRepository.Atualizar(rncAnterior);
             return true;
         }
 

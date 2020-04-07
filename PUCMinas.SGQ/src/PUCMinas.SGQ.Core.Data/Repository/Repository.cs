@@ -28,6 +28,7 @@ namespace PUCMinas.SGQ.Core.Data.Repository
 
         public virtual async Task Atualizar(TEntity entity)
         {
+            entity.DataUltimaAtualizacao = DateTime.Now;
             DbSet.Update(entity);
             await SaveChanges();
         }

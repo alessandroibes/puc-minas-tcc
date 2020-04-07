@@ -14,9 +14,9 @@ namespace PUCMinas.SGQ.Processos.Data.Repository
 
         public async Task<Atividade> ObterAtividadeComPassoDefinicao(Guid id)
         {
-            return await (Db as ProcessosDbContext).Atividades
-                .AsNoTracking()
+            return await (Db as ProcessosDbContext).Atividades                
                 .Include(a => a.PassoDefinicoes)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
     }
