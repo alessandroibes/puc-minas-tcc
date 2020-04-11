@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PUCMinas.SGQ.Core.WebApi\PUCMinas.SGQ.Core.WebApi.csproj" />
-    <ProjectReference Include="..\PUCMinas.SGQ.IdentityService.WebAPI\PUCMinas.SGQ.IdentityService.WebAPI.csproj" />
     <ProjectReference Include="..\PUCMinas.SGQ.Processos.Data\PUCMinas.SGQ.Processos.Data.csproj" />
   </ItemGroup>
 

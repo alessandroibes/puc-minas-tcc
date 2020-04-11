@@ -1,0 +1,61 @@
+<div class="container main-container col-md-5">
+    <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+    <h6>Definição de Workflow</h6>
+    <hr />
+    <form novalidate (ngSubmit)="onSubmit(formulario)" [formGroup]="formulario">
+
+        <!-- Workflow -->
+        <div class="card-header">
+            <span class="font-weight-bold">Workflow</span>
+        </div>
+        <div class="card-body">
+            <label class="mb-0 control-label" for="nome">Nome</label>
+            <div>
+                <input class="form-control form-control-sm" id="nome" type="text" formControlName="nome"
+                    [ngClass]="{'is-invalid': displayMessage.nome }">
+                <span class="text-danger" *ngIf="displayMessage.nome">
+                    <p [innerHTML]="displayMessage.nome"></p>
+                </span>
+            </div>
+        </div>
+
+        <!-- Passos -->
+        <div formArrayName="passos">
+            <div *ngFor="let passo of formulario.get('passos')['controls']; let i=index" class="card bg-light mb-2">
+                <div class="card-header">
+                    <span class="font-weight-bold">Passo {{ i + 1 }}</span>
+                    <span class="fa fa-trash fa-lg pull-right" (click)="removerPasso(i)"></span>
+                </div>
+                <div class="card-body" [formGroupName]="i">
+                    <div>
+                        <label class="mb-0 control-label">Título</label>
+                        <input class="form-control form-control-sm" id="titulo" type="text" formControlName="titulo"
+                            [ngClass]="{'is-invalid': displayMessage.titulo }">
+                        <span class="text-danger" *ngIf="displayMessage.titulo">
+                            <p [innerHTML]="displayMessage.titulo"></p>
+                        </span>
+                    </div>
+                    <div>
+                        <label class="mb-0 control-label">Descrição</label>
+                        <textarea class="form-control form-control-sm" id="descricao" type="text"
+                            formControlName="descricao" [ngClass]="{'is-invalid': displayMessage.descricao }"
+                            rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 mt-2">
+            <a class="font-weight-bold" (click)="adicionarPasso()" style="cursor: default">
+                Adicionar novo passo +
+            </a>
+        </div>
+        <hr />
+        <div class="col-md-10">
+            <button [disabled]="!formulario.valid || loading" type="submit" class="btn btn-primary">Gravar</button>
+        </div>
+
+    </form>
+</div>

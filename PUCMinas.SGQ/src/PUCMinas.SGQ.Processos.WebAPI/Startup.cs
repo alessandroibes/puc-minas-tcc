@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PUCMinas.SGQ.Core.WebApi.Configuration;
+using PUCMinas.SGQ.Core.WebApi.Extensions;
+using PUCMinas.SGQ.Processos.Data.Context;
 using PUCMinas.SGQ.Processos.WebAPI.Configuration;
 
 namespace PUCMinas.SGQ.Processos.WebAPI
@@ -20,8 +24,16 @@ namespace PUCMinas.SGQ.Processos.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProcessosDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("ProcessosConnection"));
+            });
+
+            services.AddIdentityConfiguration(Configuration);
+            services.AddAutoMapper(typeof(Startup));
             services.WebApiConfig();
             services.AddSwaggerConfig();
+            services.AddLoggingConfiguration(Configuration);
             services.ResolveDependencies();
         }
 
@@ -38,8 +50,11 @@ namespace PUCMinas.SGQ.Processos.WebAPI
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvcConfiguration();
             app.UseSwaggerConfig(provider);
+            app.UseLoggingConfiguration();
         }
     }
 }

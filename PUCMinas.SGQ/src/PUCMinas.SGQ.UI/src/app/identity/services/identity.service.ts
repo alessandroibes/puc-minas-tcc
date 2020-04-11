@@ -34,12 +34,13 @@ export class IdentityService extends BaseService {
         return this.currentUserSubject.value;
     }
 
-    login(email: string, password: string) {
-        return this.http.post<any>(this.config.apiIdentityServiceAddress + "v1/entrar", { email, password })
+    login(username: string, password: string) {
+        return this.http.post<any>(this.config.apiIdentityServiceAddress + "v1/entrar", { username, password })
             .pipe(map(response => {
                 if (response && response.success) {
                     this.loggedUser = new User;
-                    this.loggedUser.email = email;
+                    this.loggedUser.username = username;
+                    this.loggedUser.email = response.data.userToken.email;
                     this.loggedUser.password = password;
                     this.loggedUser.expiresIn = (response.data.expiresIn * 1000) + Date.now();
                     this.loggedUser.loginUser = response.data;

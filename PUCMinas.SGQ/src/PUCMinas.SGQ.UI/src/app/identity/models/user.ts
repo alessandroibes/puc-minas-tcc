@@ -1,6 +1,7 @@
 import { Guid } from 'guid-typescript';
 
 export class User {
+    username: string;
     email: string;
     password: string;
     expiresIn: number;

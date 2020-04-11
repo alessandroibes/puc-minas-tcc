@@ -29,6 +29,23 @@
                             [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Criar</span></a>
                     </li>
                 </ul>
+                <li expandMenu class="nav-item"
+                    *ngIf="currentUser && (currentUser.engenheiro || currentUser.operador || currentUser.gerente)">
+                    <a class="nav-link">
+                        <span>Processos</span>
+                        <span>&nbsp;<i class="fa fa-angle-down fa-sm"></i></span>
+                    </a>
+                </li>
+                <ul class="nav submenu mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/listar-workflow-definicao']" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Listar Definições</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/criar-workflow-definicao']" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Criar Nova Definição</span></a>
+                    </li>
+                </ul>
                 <li class="nav-item">
                     <a class="nav-link" (click)="logout()" href="/login">Logout</a>
                 </li>

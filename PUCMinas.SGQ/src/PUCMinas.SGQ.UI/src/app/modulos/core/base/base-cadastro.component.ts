@@ -12,7 +12,7 @@ export class BaseCadastroComponent implements AfterViewInit, IsPristineAware {
     alerts: Alert[];
     loading = false;
 
-    formulario: FormGroup;
+    public formulario: FormGroup;
     validationMessages: ValidationMessages;
     genericValidator: GenericValidator;
     displayMessage: DisplayMessage = {};

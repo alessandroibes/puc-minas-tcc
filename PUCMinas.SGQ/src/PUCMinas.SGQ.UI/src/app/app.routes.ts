@@ -3,13 +3,17 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { HomeComponent } from './navegacao/home/home.component';
 import { LoginComponent } from './identity/login/login.component';
+
 import { ListarRNCComponent } from './modulos/rnc/listar-rnc/listar-rnc.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 import { ManterRNCComponent } from './modulos/rnc/manter-rnc/manter-rnc.component';
 
+import { ListarWorkflowDefinicaoComponent } from './modulos/processos/listar-workflow-definicao/listar-workflow-definicao.component';
+
 import { AuthenticatedGuard } from './identity/services/authenticated.guard';
 import { AdminGuard } from './identity/services/admin.guard';
 import { IsPristineGuard } from './modulos/core/alerts/ui-confirm.module';
+import { ManterWorkflowDefinicaoComponent } from './modulos/processos/manter-workflow-definicao/manter-workflow-definicao.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +22,9 @@ const rootRouterConfig: Routes = [
     { path: 'listar-rnc', component: ListarRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
     { path: 'criar-rnc', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
     { path: 'atualizar-rnc/:id', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
+    { path: 'listar-workflow-definicao', component: ListarWorkflowDefinicaoComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
+    { path: 'criar-workflow-definicao', component: ManterWorkflowDefinicaoComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
+    { path: 'atualizar-workflow-definicao/:id', component: ManterWorkflowDefinicaoComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
 
     // otherwise redirect to 404 page
     { path: '**', component: NotFoundComponent }

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PUCMinas.SGQ.Processos.WebAPI.ViewModel
 {
-    public class AtividadeViewModel
+    public class WorkflowDefinicaoViewModel
     {
         [Key]
         public Guid Id { get; set; }
@@ -13,7 +14,10 @@ namespace PUCMinas.SGQ.Processos.WebAPI.ViewModel
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(1000, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 10)]
-        public string Descricao { get; set; }
+
+        public Guid EngenherioCriadorId { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public IEnumerable<PassoDefinicaoViewModel> PassosDefinicao { get; set; }
     }
 }

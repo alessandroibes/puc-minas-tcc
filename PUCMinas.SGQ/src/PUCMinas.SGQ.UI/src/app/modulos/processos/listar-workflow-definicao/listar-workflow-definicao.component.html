@@ -1,0 +1,22 @@
+<div class="container main-container">
+    <h6>Definição de Workflow</h6>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th class="text-center" scope="col">Operações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let wd of wds">
+                <td>{{ wd.nome }}</td>
+                <td class="text-center">
+                    <button [routerLink]="['/atualizar-workflow-definicao', wd.id]"
+                        class="fa fa-pencil fa-lg"></button>&nbsp;
+                    <button class="fa fa-list-alt fa-lg" (click)="detalhesModal(wd)"></button>&nbsp;
+                    <button class="fa fa-trash fa-lg"></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

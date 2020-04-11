@@ -57,7 +57,7 @@ namespace PUCMinas.SGQ.Incidentes.Business.Services
             rncAnterior.AcaoId = rnc.AcaoId;
             rncAnterior.Prazo = rnc.Prazo;
 
-            if (!ExecutarValidacao(new RNCValidation(), rnc)) return false;
+            if (!ExecutarValidacao(new RNCValidation(), rncAnterior)) return false;
 
             // Casos de Uso possíveis "AlterarRNC" e "RevolverRNC"
             if (rncAnterior.Status == StatusRNC.Aberta)

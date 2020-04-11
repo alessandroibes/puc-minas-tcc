@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace PUCMinas.SGQ.Processos.Business.Interfaces
 {
-    public interface IAtividadeRepository : IRepository<Atividade>
+    public interface IRepository : IRepository<Parada>
     {
-        Task<Atividade> ObterAtividadeComPassoDefinicao(Guid id);
+
     }
 }

@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GenericValidator } from '../../core/generic-form-validation';
 import { ActivatedRoute } from '@angular/router';
@@ -15,13 +15,12 @@ import { BaseCadastroComponent } from '../../core/base/base-cadastro.component';
     templateUrl: './manter-rnc.component.html'
 })
 export class ManterRNCComponent extends BaseCadastroComponent implements OnInit {
-    //id: string;
+    id: string;
     rnc: RNC;
     classificacao = [];
     gravidades: Gravidade[];
     causas: Causa[];
     acoes: Acao[];
-    id: string;
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,

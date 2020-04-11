@@ -8,11 +8,13 @@ registerLocaleData(localePt);
 
 import { AppComponent } from './app.component';
 
-import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AppRoutingModule } from './app.routes';
-import { RNCModule } from './modulos/rnc/rnc.module';
-import { IdentityModule } from './identity/Identity.module';
+import { NavegacaoModule } from './navegacao/navegacao.module';
 import { UiConfirmModule } from './modulos/core/alerts/ui-confirm.module';
+
+import { IdentityModule } from './identity/Identity.module';
+import { RNCModule } from './modulos/rnc/rnc.module';
+import { ProcessoModule } from './modulos/processos/processo.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { UiConfirmModule } from './modulos/core/alerts/ui-confirm.module';
     AppRoutingModule,
     IdentityModule,
     RNCModule,
+    ProcessoModule,
     FormsModule,
     ReactiveFormsModule,
     UiConfirmModule

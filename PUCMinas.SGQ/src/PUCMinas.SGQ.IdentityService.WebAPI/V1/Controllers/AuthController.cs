@@ -45,7 +45,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.V1.Controllers
 
             var user = new IdentityUser
             {
-                UserName = registerUser.Email,
+                UserName = registerUser.UserName,
                 Email = registerUser.Email,
                 EmailConfirmed = true
             };
@@ -71,12 +71,12 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.V1.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
+            var result = await _signInManager.PasswordSignInAsync(loginUser.UserName, loginUser.Password, false, true);
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("Usuário " + loginUser.Email + " logado com sucesso");
-                return CustomResponse(await GerarJwt(loginUser.Email));
+                _logger.LogInformation("Usuário " + loginUser.UserName + " logado com sucesso");
+                return CustomResponse(await GerarJwt(loginUser.UserName));
             }
 
             if (result.IsLockedOut)
@@ -89,9 +89,9 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.V1.Controllers
             return CustomResponse(loginUser);
         }
 
-        private async Task<LoginResponseViewModel> GerarJwt(string email)
+        private async Task<LoginResponseViewModel> GerarJwt(string username)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByNameAsync(username);
             var claims = await _userManager.GetClaimsAsync(user);
             var userRoles = await _userManager.GetRolesAsync(user);
 
