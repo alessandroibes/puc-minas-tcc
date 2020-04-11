@@ -24,9 +24,6 @@ namespace PUCMinas.SGQ.Processos.Data.Mappings
                 .HasForeignKey(p => p.WorkflowDefinicaoId)
                 .IsRequired(true);
 
-            builder.Property(p => p.Ordem)
-                .IsRequired(true);
-
             builder.ToTable("PassosDefinicao");
         }
     }

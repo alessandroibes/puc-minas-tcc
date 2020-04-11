@@ -23,11 +23,6 @@ namespace PUCMinas.SGQ.Processos.Business.Models
         /// </summary>
         public string Descricao { get; set; }
 
-        /// <summary>
-        /// Ordem de execução do passo dentro do workflow.
-        /// </summary>
-        public int Ordem { get; set; }
-
         /* EF Relations */
         /// <summary>
         /// Definição de workflow a qual este passo faz parte.

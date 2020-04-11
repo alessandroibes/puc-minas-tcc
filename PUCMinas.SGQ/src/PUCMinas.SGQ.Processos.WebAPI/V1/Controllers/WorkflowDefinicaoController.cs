@@ -32,7 +32,7 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
             _mapper = mapper;
         }
 
-        //[Authorize(Roles = "operador,gerente,engenheiro")]
+        [Authorize(Roles = "operador,gerente,engenheiro")]
         [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<WorkflowDefinicaoViewModel>> ObterTodos()
@@ -40,7 +40,7 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
             return _mapper.Map<IEnumerable<WorkflowDefinicaoViewModel>>(await _wfDefRepository.ObterWorkflowDefinicaoComObjetos());
         }
 
-        //[Authorize(Roles = "operador,gerente,engenheiro")]
+        [Authorize(Roles = "operador,gerente,engenheiro")]
         [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<WorkflowDefinicaoViewModel>> ObterPorId(Guid id)

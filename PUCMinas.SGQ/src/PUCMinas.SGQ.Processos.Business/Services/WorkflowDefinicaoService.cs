@@ -11,24 +11,29 @@ namespace PUCMinas.SGQ.Processos.Business.Services
     public class WorkflowDefinicaoService : BaseService, IWorkflowDefinicaoService
     {
         private readonly IWorkflowDefinicaoRepository _wfDefRepository;
+        private readonly IPassoDefinicaoRepository _pdDefRepository;
         private readonly IUser _user;
 
-        public WorkflowDefinicaoService(IWorkflowDefinicaoRepository wfDefRepository, 
+        public WorkflowDefinicaoService(IWorkflowDefinicaoRepository wfDefRepository,
+            IPassoDefinicaoRepository pdDefRepository,
             INotificador notificador, 
             IUser user) : base(notificador)
         {
             _wfDefRepository = wfDefRepository;
+            _pdDefRepository = pdDefRepository;
             _user = user;
         }
 
         public async Task<bool> Adicionar(WorkflowDefinicao workflowDefinicao)
         {
+            workflowDefinicao.Id = Guid.NewGuid();
             workflowDefinicao.EngenherioCriadorId = _user.GetUserId();
 
             if (!ExecutarValidacao(new WorkflowDefinicaoValidation(), workflowDefinicao)) return false;
 
             foreach (var passo in workflowDefinicao.PassosDefinicao)
             {
+                passo.WorkflowDefinicaoId = workflowDefinicao.Id;
                 if (!ExecutarValidacao(new PassoDefinicaoValidation(), passo)) return false;
             }
 
@@ -52,13 +57,14 @@ namespace PUCMinas.SGQ.Processos.Business.Services
                 return false;
             }
 
-            wfDefAnterior.EngenherioCriadorId = workflowDefinicao.EngenherioCriadorId;
             wfDefAnterior.Nome = workflowDefinicao.Nome;
             wfDefAnterior.PassosDefinicao = workflowDefinicao.PassosDefinicao;
 
             if (!ExecutarValidacao(new WorkflowDefinicaoValidation(), wfDefAnterior)) return false;
 
+            await _pdDefRepository.RemoverPorWorkflowDefinicao(workflowDefinicao.Id);
             await _wfDefRepository.Atualizar(wfDefAnterior);
+
             return true;
         }
 
@@ -73,22 +79,6 @@ namespace PUCMinas.SGQ.Processos.Business.Services
 
             await _wfDefRepository.Remover(id);
             return true;
-        }
-
-        public Task<bool> AdicionarPassoDefinicao(PassoDefinicao passoDefinicao)
-        {
-            throw new NotImplementedException();
-        }
-        
-
-        public Task<bool> AtualizarPassoDefinicao(PassoDefinicao passoDefinicao)
-        {
-            throw new NotImplementedException();
-        }                
-
-        public Task<bool> RemoverPassoDefinicao(Guid id)
-        {
-            throw new NotImplementedException();
         }
 
         public void Dispose()

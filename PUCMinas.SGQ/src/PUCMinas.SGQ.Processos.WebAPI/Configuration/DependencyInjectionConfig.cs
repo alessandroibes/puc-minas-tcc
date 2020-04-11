@@ -19,8 +19,8 @@ namespace PUCMinas.SGQ.Processos.WebAPI.Configuration
             services.AddScoped<ProcessosDbContext>();
             services.AddScoped<INotificador, Notificador>();
 
-
             services.AddScoped<IWorkflowDefinicaoRepository, WorkflowDefinicaoRepository>();
+            services.AddScoped<IPassoDefinicaoRepository, PassoDefinicaoRepository>();
 
             services.AddScoped<IWorkflowDefinicaoService, WorkflowDefinicaoService>();
 

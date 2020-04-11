@@ -1,6 +1,6 @@
 import { PassoDefinicao } from './passodefinicao';
 
-export interface WorkflowDefinicao {
+export class WorkflowDefinicao {
     id: string;
     nome: string;
     passosDefinicao: PassoDefinicao[];

@@ -17,10 +17,6 @@ namespace PUCMinas.SGQ.Processos.Business.Models
         /// </summary>
         public string Descricao { get; set; }
         /// <summary>
-        /// Data em que a parada ocorreu.
-        /// </summary>
-        public DateTime Data { get; set; }
-        /// <summary>
         /// Identificador do operador que cadastrou esta parada.
         /// </summary>
         public Guid OperadorId { get; set; }

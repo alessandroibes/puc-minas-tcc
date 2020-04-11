@@ -10,10 +10,5 @@ namespace PUCMinas.SGQ.Processos.Business.Interfaces
         Task<bool> Adicionar(WorkflowDefinicao workflowDefinicao);
         Task<bool> Atualizar(WorkflowDefinicao workflowDefinicaoparada);
         Task<bool> Remover(Guid id);
-        
-        // Passos
-        Task<bool> AdicionarPassoDefinicao(PassoDefinicao passoDefinicao);
-        Task<bool> AtualizarPassoDefinicao(PassoDefinicao passoDefinicao);
-        Task<bool> RemoverPassoDefinicao(Guid id);
     }
 }

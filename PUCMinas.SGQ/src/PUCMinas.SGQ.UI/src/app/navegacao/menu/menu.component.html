@@ -13,18 +13,18 @@
                     <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }">Home</a>
                 </li>
-                <li expandMenu class="nav-item" *ngIf="currentUser && currentUser.gerente">
+                <li expandMenu class="nav-item" *ngIf="currentUser && (currentUser.gerente || currentUser.engenheiro)">
                     <a class="nav-link">
                         <span>RNC</span>
                         <span>&nbsp;<i class="fa fa-angle-down fa-sm"></i></span>
                     </a>
                 </li>
                 <ul class="nav submenu mr-auto">
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="currentUser && (currentUser.gerente || currentUser.engenheiro)">
                         <a class="nav-link" [routerLink]="['/listar-rnc']" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Listar</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="currentUser && currentUser.gerente">
                         <a class="nav-link" [routerLink]="['/criar-rnc']" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Criar</span></a>
                     </li>
@@ -37,11 +37,11 @@
                     </a>
                 </li>
                 <ul class="nav submenu mr-auto">
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="currentUser && (currentUser.engenheiro || currentUser.operador)">
                         <a class="nav-link" [routerLink]="['/listar-workflow-definicao']" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Listar Definições</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="currentUser && currentUser.engenheiro">
                         <a class="nav-link" [routerLink]="['/criar-workflow-definicao']" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Criar Nova Definição</span></a>
                     </li>

@@ -14,9 +14,6 @@ namespace PUCMinas.SGQ.Processos.Data.Mappings
                 .IsRequired(true)
                 .HasColumnType("varchar(1000)");
 
-            builder.Property(p => p.Data)
-                .IsRequired(true);
-
             builder.Property(p => p.OperadorId)
                 .IsRequired(true);
 
