@@ -10,6 +10,10 @@ namespace PUCMinas.SGQ.Processos.Data.Mappings
         {
             builder.HasKey(w => w.Id);
 
+            builder.Property(w => w.Nome)
+                .IsRequired(true)
+                .HasColumnType("varchar(100)");
+
             // 1 : N => Workflow : Passos
             builder.HasMany(w => w.Passos)
                 .WithOne(p => p.Workflow)

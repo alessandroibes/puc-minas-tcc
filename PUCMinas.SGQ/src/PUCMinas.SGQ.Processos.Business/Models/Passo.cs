@@ -13,6 +13,14 @@ namespace PUCMinas.SGQ.Processos.Business.Models
         /// </summary>
         public Guid WorflowId { get; set; }
         /// <summary>
+        /// Títul da atividade.
+        /// </summary>
+        public string Titulo { get; set; }
+        /// <summary>
+        /// Descrição da atividade.
+        /// </summary>
+        public string Descricao { get; set; }
+        /// <summary>
         /// Identificador do operador que executou este passo.
         /// </summary>
         public Guid OperadorId { get; set; }

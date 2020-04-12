@@ -6,7 +6,6 @@ namespace PUCMinas.SGQ.Processos.Business.Interfaces
 {
     public interface IWorkflowDefinicaoService : IDisposable
     {
-        // Workflow
         Task<bool> Adicionar(WorkflowDefinicao workflowDefinicao);
         Task<bool> Atualizar(WorkflowDefinicao workflowDefinicaoparada);
         Task<bool> Remover(Guid id);

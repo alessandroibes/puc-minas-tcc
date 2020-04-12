@@ -45,11 +45,11 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<WorkflowDefinicaoViewModel>> ObterPorId(Guid id)
         {
-            var rnc = _mapper.Map<WorkflowDefinicaoViewModel>(await _wfDefRepository.ObterWorkflowDefinicaoPorIdComObjetos(id));
+            var wfd = _mapper.Map<WorkflowDefinicaoViewModel>(await _wfDefRepository.ObterWorkflowDefinicaoPorIdComObjetos(id));
 
-            if (rnc == null) return NotFound();
+            if (wfd == null) return NotFound();
 
-            return rnc;
+            return wfd;
         }
 
         [Authorize(Roles = "engenheiro")]

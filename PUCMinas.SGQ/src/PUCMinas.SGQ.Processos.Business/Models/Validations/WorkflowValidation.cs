@@ -6,10 +6,15 @@ namespace PUCMinas.SGQ.Processos.Business.Models.Validations
     {
         public WorkflowValidation()
         {
-            RuleFor(p => p.Iniciado)
+            RuleFor(w => w.Nome)
+                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
+                .Length(5, 100)
+                .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
+
+            RuleFor(w => w.Iniciado)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(p => p.Finalizado)
+            RuleFor(w => w.Finalizado)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }
     }

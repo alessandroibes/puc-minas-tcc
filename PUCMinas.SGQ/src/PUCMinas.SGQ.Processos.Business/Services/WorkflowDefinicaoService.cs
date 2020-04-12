@@ -84,7 +84,7 @@ namespace PUCMinas.SGQ.Processos.Business.Services
         public void Dispose()
         {
             _wfDefRepository?.Dispose();
-            //_passosDefRepository?.Dispose();
+            _pdDefRepository?.Dispose();
         }
     }
 }

@@ -32,7 +32,9 @@ import { RNCService } from './services/rnc.service';
         RNCService
     ],
     exports: [
-
+        ListarRNCComponent,
+        ManterRNCComponent,
+        DetalharRNCModalComponent
     ]
 })
 export class RNCModule { }

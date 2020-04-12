@@ -15,6 +15,8 @@
                         class="fa fa-pencil fa-lg"></button>&nbsp;
                     <button class="fa fa-list-alt fa-lg" (click)="detalhesModal(wd)"></button>&nbsp;
                     <button class="fa fa-trash fa-lg"></button>
+                    <button class="fa fa-tasks fa-lg" (click)="criarWorkflow(wd.id)"
+                        *ngIf="currentUser && currentUser.operador"></button>
                 </td>
             </tr>
         </tbody>

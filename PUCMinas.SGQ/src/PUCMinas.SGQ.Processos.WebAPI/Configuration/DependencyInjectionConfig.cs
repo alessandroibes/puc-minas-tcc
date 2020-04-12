@@ -21,8 +21,12 @@ namespace PUCMinas.SGQ.Processos.WebAPI.Configuration
 
             services.AddScoped<IWorkflowDefinicaoRepository, WorkflowDefinicaoRepository>();
             services.AddScoped<IPassoDefinicaoRepository, PassoDefinicaoRepository>();
+            services.AddScoped<IWorkflowRepository, WorkflowRepository>();
+            services.AddScoped<IPassoRepository, PassoRepository>();
 
             services.AddScoped<IWorkflowDefinicaoService, WorkflowDefinicaoService>();
+            services.AddScoped<IWorkflowService, WorkflowService>();
+            services.AddScoped<IPassoService, PassoService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();

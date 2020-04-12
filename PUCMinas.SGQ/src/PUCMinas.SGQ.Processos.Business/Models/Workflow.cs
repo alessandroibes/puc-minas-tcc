@@ -10,6 +10,10 @@ namespace PUCMinas.SGQ.Processos.Business.Models
     public class Workflow : Entity
     {
         /// <summary>
+        /// Nome do workflow.
+        /// </summary>
+        public string Nome { get; set; }
+        /// <summary>
         /// Data de início do primeiro passo (atividade) do workflow.
         /// </summary>
         public DateTime? DataInicio { get; set; }

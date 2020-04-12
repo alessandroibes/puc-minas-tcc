@@ -5,12 +5,17 @@ import { ConfigService } from '../../core/services/config.services';
 import { BaseService } from '../../core/services/base.service';
 
 import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { WorkflowDefinicao } from '../models/workflowdefinicao';
-import { catchError } from 'rxjs/operators';
+import { Store } from '../workflow.store';
+import { Workflow } from '../models/workflow';
+import { Passo } from '../models/passo';
 
 @Injectable()
 export class ProcessoService extends BaseService {
-    constructor(private http: HttpClient, private config: ConfigService) {
+    constructor(private http: HttpClient,
+        private config: ConfigService,
+        private store: Store) {
         super();
     }
 
@@ -29,5 +34,34 @@ export class ProcessoService extends BaseService {
 
     updateWorflowDefinicao(wd: WorkflowDefinicao, id: string): Observable<any> {
         return this.http.put<any>(this.config.apiProcessosAddress + "v1/workflowdefinicao/" + id, wd).pipe(catchError(this.handleError));
+    }
+
+    // workflow
+    criarWorkflow(workflowDefinicaoId: string): Observable<Workflow> {
+        return this.http.get<Workflow>(this.config.apiProcessosAddress + 'v1/workflow/criar-workflow/' + workflowDefinicaoId).pipe(catchError(this.handleError));
+    }
+
+    getPassos(id: string): Observable<Passo[]> {
+        return this.http.get<Passo[]>(this.config.apiProcessosAddress + 'v1/workflow/todolist/' + id)
+            .pipe(tap(next => this.store.set('todolist', next)))
+            .pipe(catchError(this.handleError));
+    }
+
+    toggle(event: any) {
+        this.http
+            .put(this.config.apiProcessosAddress + `v1/workflow/todolist/${event.passo.id}`, event.passo)
+            .subscribe(() => {
+                const value = this.store.value.todolist;
+
+                const todolist = value.map((passo: Passo) => {
+                    if (event.passo.id === passo.id) {
+                        return { ...passo, ...event.passo }
+                    } else {
+                        return passo;
+                    }
+                });
+
+                this.store.set('todolist', todolist);
+            });
     }
 }
