@@ -75,6 +75,9 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
                 this.rnc.gravidade = this.gravidades.find(g => g.id == this.f.gravidade.value);
                 this.rnc.causa = this.causas.find(g => g.id == this.f.causa.value);
                 this.rnc.acao = this.acoes.find(g => g.id == this.f.acao.value);
+                if (this.id == null) {
+                    this.rnc.dataOcorrencia = new Date();
+                }
                 let dataOcorrencia = new Date(this.rnc.dataOcorrencia).getTime();
                 // 86400000 milessegundos corresponde a 1 dia
                 if (this.f.prazo.value) {
@@ -94,6 +97,9 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
             } else {
                 // não submeteu
             }
+
+            this.formulario.reset();
+            this.limparFormulario();
         } catch (e) {
             this.loading = false;
             this.alerts = Array.from([{ type: 'danger', message: 'Erro ao tentar salvar RNC.' }]);
@@ -153,23 +159,26 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
         }
 
         if (!definido) {
-            this.formulario = this.fb.group({
-                ocorrencia: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
-                descricao: [null, [Validators.minLength(5), Validators.maxLength(1000)]],
-                classificacao: [null],
-                gravidade: [null],
-                causa: [null],
-                acao: [null],
-                prazo: [1]
-            });
+            this.limparFormulario();
         }
+    }
+
+    limparFormulario() {
+        this.formulario = this.fb.group({
+            ocorrencia: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
+            descricao: [null, [Validators.minLength(5), Validators.maxLength(1000)]],
+            classificacao: [null],
+            gravidade: [null],
+            causa: [null],
+            acao: [null],
+            prazo: [1]
+        });
     }
 
     criarRNC() {
         this.rncService.addRNC(this.rnc).subscribe(result => {
             this.loading = false;
             this.alerts = Array.from([{ type: 'success', message: 'Nova RNC criada com sucesso!' }]);
-            this.formulario.reset();
         }, error => {
             this.loading = false;
             this.alerts = Array.from([{ type: 'danger', message: error }]);
@@ -180,7 +189,6 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
         this.rncService.updateRNC(this.rnc, this.id).subscribe(result => {
             this.loading = false;
             this.alerts = Array.from([{ type: 'success', message: 'RNC alterada com sucesso!' }]);
-            this.formulario.reset();
         }, error => {
             this.loading = false;
             this.alerts = Array.from([{ type: 'danger', message: error }]);

@@ -51,21 +51,6 @@ namespace PUCMinas.SGQ.Processos.Business.Services
             return wf;
         }
 
-        public Task<bool> Adicionar(Workflow workflow)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Atualizar(Workflow workflow)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Remover(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Dispose()
         {
             _wfDefRepository?.Dispose();

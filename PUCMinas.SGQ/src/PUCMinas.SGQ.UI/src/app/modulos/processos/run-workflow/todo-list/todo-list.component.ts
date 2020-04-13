@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Passo } from '../../models/passo';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Parada } from '../../models/parada';
+import { ProcessoService } from '../../services/processo.service';
 
 @Component({
     selector: 'todo-list',
@@ -7,12 +10,13 @@ import { Passo } from '../../models/passo';
     styleUrls: ['todo-list.component.css']
 })
 export class ToDoListComponent {
-
     @Input()
     list: Passo[];
 
     @Output()
     toggle = new EventEmitter<any>();
+
+    constructor(private modalService: NgbModal, private processoService: ProcessoService) { }
 
     toggleItem(index: number, acao: string) {
         const passo = this.list[index];
@@ -38,6 +42,24 @@ export class ToDoListComponent {
 
         this.toggle.emit({
             passo: { ...passo }
+        });
+    }
+
+    TITULO_PASSO: any;
+    open(content, index: number) {
+        const passo = this.list[index];
+        this.TITULO_PASSO = passo.titulo;
+        this.modalService.open(content, { ariaLabelledBy: 'registrar-parada-modal' }).result.then((result) => {
+            //this.closeResult = `Closed with: ${result}`;
+
+            let parada = new Parada;
+            parada.descricao = result;
+            parada.incidenteCadastrado = false;
+            parada.passoId = passo.id;
+
+            this.processoService.registrarParada(parada).subscribe(result => {
+                passo.parada = result as Parada;
+            });
         });
     }
 }

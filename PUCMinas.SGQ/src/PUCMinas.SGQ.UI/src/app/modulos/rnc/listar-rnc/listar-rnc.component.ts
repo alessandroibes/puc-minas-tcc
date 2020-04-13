@@ -3,15 +3,22 @@ import { RNC } from '../models/rnc';
 import { RNCService } from '../services/rnc.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetalharRNCModalComponent } from '../detalhar-rnc/detalhar-rnc-modal.component';
+import { User } from 'src/app/identity/models/user';
+import { IdentityService } from 'src/app/identity/services/identity.service';
 
 @Component({
     selector: 'listar-rnc',
     templateUrl: './listar-rnc.component.html'
 })
 export class ListarRNCComponent implements OnInit {
+    currentUser: User;
     rncs: RNC[];
 
-    constructor(private rncService: RNCService, private modalService: NgbModal) { }
+    constructor(private rncService: RNCService,
+        private modalService: NgbModal,
+        private identityService: IdentityService) {
+        this.identityService.currentUser.subscribe(x => this.currentUser = x);
+    }
 
     ngOnInit() {
         this.rncService.getRNC().subscribe(result => {

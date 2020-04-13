@@ -10,6 +10,7 @@ import { WorkflowDefinicao } from '../models/workflowdefinicao';
 import { Store } from '../workflow.store';
 import { Workflow } from '../models/workflow';
 import { Passo } from '../models/passo';
+import { Parada } from '../models/parada';
 
 @Injectable()
 export class ProcessoService extends BaseService {
@@ -37,14 +38,22 @@ export class ProcessoService extends BaseService {
     }
 
     // workflow
+    getWorflowEmAndamento(): Observable<Workflow[]> {
+        return this.http.get<Workflow[]>(this.config.apiProcessosAddress + "v1/workflow/todolist").pipe(catchError(this.handleError));
+    }
+
+    getPassos(workflowId: string): Observable<Passo[]> {
+        return this.http.get<Passo[]>(this.config.apiProcessosAddress + 'v1/workflow/todolist/' + workflowId)
+            .pipe(tap(next => this.store.set('todolist', next)))
+            .pipe(catchError(this.handleError));
+    }
+
     criarWorkflow(workflowDefinicaoId: string): Observable<Workflow> {
         return this.http.get<Workflow>(this.config.apiProcessosAddress + 'v1/workflow/criar-workflow/' + workflowDefinicaoId).pipe(catchError(this.handleError));
     }
 
-    getPassos(id: string): Observable<Passo[]> {
-        return this.http.get<Passo[]>(this.config.apiProcessosAddress + 'v1/workflow/todolist/' + id)
-            .pipe(tap(next => this.store.set('todolist', next)))
-            .pipe(catchError(this.handleError));
+    registrarParada(parada: Parada): Observable<any> {
+        return this.http.post<any>(this.config.apiProcessosAddress + 'v1/workflow/registrar-parada', parada).pipe(catchError(this.handleError));
     }
 
     toggle(event: any) {

@@ -14,7 +14,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
 {
     [Authorize]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/gravidade")]
     public class GravidadeController : MainController
     {
         private readonly IGravidadeRepository _gravidadeRepository;

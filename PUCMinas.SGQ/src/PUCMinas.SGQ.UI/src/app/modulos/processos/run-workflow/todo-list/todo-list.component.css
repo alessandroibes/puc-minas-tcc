@@ -12,6 +12,14 @@
     margin-bottom: 0.0rem !important;
 }
 
+.task-list__parada {
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+}
+
 .task-list__finalizado {
     position: absolute;
     right: 20px;
@@ -30,7 +38,7 @@
 
 .task-list__retroceder {
     position: absolute;
-    right: 50px;
+    left: 20px;
     cursor: pointer;
     border: none;
     background-color: inherit;

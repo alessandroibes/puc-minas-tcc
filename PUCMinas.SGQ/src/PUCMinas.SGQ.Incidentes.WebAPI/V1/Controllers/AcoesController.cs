@@ -14,7 +14,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
 {
     [Authorize]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/acoes")]
     public class AcoesController : MainController
     {
         private readonly IAcaoRepository _acaoRepository;

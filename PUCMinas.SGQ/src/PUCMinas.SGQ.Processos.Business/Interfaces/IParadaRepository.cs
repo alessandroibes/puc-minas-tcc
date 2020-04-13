@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PUCMinas.SGQ.Processos.Business.Interfaces
 {
-    public interface IRepository : IRepository<Parada>
+    public interface IParadaRepository : IRepository<Parada>
     {
 
     }

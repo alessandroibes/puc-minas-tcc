@@ -15,6 +15,7 @@ import { AdminGuard } from './identity/services/admin.guard';
 import { IsPristineGuard } from './modulos/core/alerts/ui-confirm.module';
 import { ManterWorkflowDefinicaoComponent } from './modulos/processos/manter-workflow-definicao/manter-workflow-definicao.component';
 import { RunWorkflowComponent } from './modulos/processos/run-workflow/run-workflow.component';
+import { ListarWorkflowAndamentoComponent } from './modulos/processos/listar-workflow-andamento/listar-workflow-andamento.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +27,8 @@ const rootRouterConfig: Routes = [
     { path: 'listar-workflow-definicao', component: ListarWorkflowDefinicaoComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
     { path: 'criar-workflow-definicao', component: ManterWorkflowDefinicaoComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
     { path: 'atualizar-workflow-definicao/:id', component: ManterWorkflowDefinicaoComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
-    { path: 'run-workflow/:id', component: RunWorkflowComponent },
+    { path: 'listar-workflow-andamento', component: ListarWorkflowAndamentoComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
+    { path: 'run-workflow/:id', component: RunWorkflowComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
 
     // otherwise redirect to 404 page
     { path: '**', component: NotFoundComponent }

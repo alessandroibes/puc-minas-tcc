@@ -14,7 +14,7 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
 {
     [Authorize]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/workflowdefinicao")]
     public class WorkflowDefinicaoController : MainController
     {
         private readonly IWorkflowDefinicaoRepository _wfDefRepository;
@@ -33,7 +33,6 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
         }
 
         [Authorize(Roles = "operador,gerente,engenheiro")]
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<WorkflowDefinicaoViewModel>> ObterTodos()
         {
@@ -41,7 +40,6 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
         }
 
         [Authorize(Roles = "operador,gerente,engenheiro")]
-        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<WorkflowDefinicaoViewModel>> ObterPorId(Guid id)
         {

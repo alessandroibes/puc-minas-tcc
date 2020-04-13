@@ -3,22 +3,52 @@
         <ng-content></ng-content>
     </h3>
 
+    <!-- Modal de cadastro de Padada-->
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="registrar-parada-modal">Registrar Parada</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <p><strong>Passo: </strong><span>{{ TITULO_PASSO }}</span></p>
+                    <br />
+                    <div>
+                        <label class="mb-0 control-label">Descrição</label>
+                        <textarea class="form-control form-control-sm" id="descricao" type="text" rows="5"
+                            #descricao></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn btn-primary" (click)="modal.close(descricao.value)">Registrar</button>
+        </div>
+    </ng-template>
+    <!-- Modal de cadastro de Padada-->
+
     <table class="table table-striped">
         <tbody>
             <tr *ngFor="let item of list; index as i">
                 <td>
                     <span>{{ item.titulo }}</span>
 
-                    <button *ngIf="!item.finalizado && item.iniciado" class="fa fa-stop fa-lg task-list__finalizado"
+                    <button *ngIf="!item.finalizado && item.iniciado"
+                        class="fa fa-chevron-circle-right fa-lg task-list__finalizado"
                         (click)="toggleItem(i, 'finalizar')"></button>
+
+                    <button *ngIf="!item.finalizado && item.iniciado" class="fa fa-ban fa-lg task-list__parada"
+                        (click)="open(content, i)"></button>
+
                     <button *ngIf="!item.finalizado && !item.iniciado"
                         class="fa fa-chevron-circle-right fa-lg task-list__iniciado"
                         (click)="toggleItem(i, 'iniciar')"></button>
-                    <button *ngIf="item.finalizado && !item.iniciado"
-                        class="fa fa-chevron-circle-left task-list__retroceder"
-                        (click)="toggleItem(i, 'retomar')"></button>
+
                     <button *ngIf="!item.finalizado && item.iniciado"
-                        class="fa fa-chevron-circle-left task-list__retroceder"
+                        class="fa fa-chevron-circle-left fa-lg task-list__retroceder"
                         (click)="toggleItem(i, 'cancelar')"></button>
                 </td>
             </tr>

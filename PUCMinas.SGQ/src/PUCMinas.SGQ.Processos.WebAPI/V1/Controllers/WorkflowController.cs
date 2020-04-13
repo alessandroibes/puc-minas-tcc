@@ -21,12 +21,14 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
         private readonly IWorkflowRepository _wfRepository;
         private readonly IWorkflowService _wfService;
         private readonly IPassoService _passoService;
+        private readonly IParadaService _paradaService;        
         private readonly IMapper _mapper;
 
         public WorkflowController(IWorkflowDefinicaoRepository wfDefRepository,
             IWorkflowRepository wfRepository,
             IWorkflowService wfService,
             IPassoService passoService,
+            IParadaService paradaService,
             IMapper mapper,
             INotificador notificador,
             IUser appUser) : base(notificador, appUser)
@@ -35,7 +37,15 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
             _wfRepository = wfRepository;
             _wfService = wfService;
             _passoService = passoService;
+            _paradaService = paradaService;
             _mapper = mapper;
+        }
+
+        [Authorize(Roles = "operador,gerente,engenheiro")]
+        [HttpGet]
+        public async Task<IEnumerable<WorkflowViewModel>> ObterTodos()
+        {
+            return _mapper.Map<IEnumerable<WorkflowViewModel>>(await _wfDefRepository.ObterTodos());
         }
 
         [Authorize(Roles = "operador,gerente")]
@@ -47,6 +57,17 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
             if (wfd == null) return NotFound();
 
             return _mapper.Map<WorkflowViewModel>(await _wfService.IniciarWorkflow(wfd));
+        }
+
+        [Authorize(Roles = "operador,gerente,engenheiro")]
+        [HttpGet("todolist")]
+        public async Task<ActionResult<IEnumerable<WorkflowViewModel>>> ObterTodosEmAndamento()
+        {
+            var wfs = _mapper.Map<WorkflowViewModel[]>(await _wfRepository.ObterTodosEmAndamento());
+
+            if (wfs == null) return NotFound();
+
+            return wfs;
         }
 
         [Authorize(Roles = "operador")]
@@ -75,6 +96,17 @@ namespace PUCMinas.SGQ.Processos.WebAPI.V1.Controllers
             await _passoService.AtualizarAtividade(_mapper.Map<Passo>(passoViewModel));
 
             return CustomResponse(passoViewModel);
+        }
+
+        [Authorize(Roles = "operador")]
+        [HttpPost("registrar-parada")]
+        public async Task<ActionResult<ParadaViewModel>> RegistrarParada(ParadaViewModel paradaViewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _paradaService.Adicionar(_mapper.Map<Parada>(paradaViewModel));
+
+            return CustomResponse(paradaViewModel);
         }
     }
 }

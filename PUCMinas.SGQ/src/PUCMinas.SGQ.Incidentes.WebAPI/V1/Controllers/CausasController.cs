@@ -14,7 +14,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.V1.Controllers
 {
     [Authorize]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/causas")]
     public class CausasController : MainController
     {
         private readonly ICausaRepository _causaRepository;

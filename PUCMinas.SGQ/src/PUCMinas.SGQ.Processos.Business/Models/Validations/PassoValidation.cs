@@ -18,12 +18,6 @@ namespace PUCMinas.SGQ.Processos.Business.Models.Validations
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
                 .Length(10, 1000)
                 .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
-
-            RuleFor(p => p.Iniciado)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
-
-            RuleFor(p => p.Finalizado)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }        
     }
 }

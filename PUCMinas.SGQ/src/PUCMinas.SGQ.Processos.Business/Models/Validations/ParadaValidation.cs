@@ -13,9 +13,6 @@ namespace PUCMinas.SGQ.Processos.Business.Models.Validations
 
             RuleFor(p => p.OperadorId)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
-
-            RuleFor(p => p.IncidenteCadastrado)
-                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }
     }
 }

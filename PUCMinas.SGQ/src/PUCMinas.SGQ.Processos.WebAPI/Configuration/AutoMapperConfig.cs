@@ -8,9 +8,9 @@ namespace PUCMinas.SGQ.Processos.WebAPI.Configuration
     {
         public AutoMapperConfig()
         {
-            //CreateMap<Parada, ParadaViewModel>().ReverseMap();
-            //CreateMap<Passo, PassoViewModel>().ReverseMap();
-            //CreateMap<Workflow, WorkflowViewModel>().ReverseMap();
+            CreateMap<Parada, ParadaViewModel>().ReverseMap();
+            CreateMap<Passo, PassoViewModel>().ReverseMap();
+            CreateMap<Workflow, WorkflowViewModel>().ReverseMap();
             CreateMap<PassoDefinicao, PassoDefinicaoViewModel>().ReverseMap();
             CreateMap<WorkflowDefinicao, WorkflowDefinicaoViewModel>().ReverseMap();
         }

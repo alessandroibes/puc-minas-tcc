@@ -1,8 +1,11 @@
+import { Parada } from './parada';
+
 export class Passo {
     id: string;
-    workflowId: string;
+    worflowId: string;
     titulo: string;
     descricao: string;
     iniciado: boolean;
     finalizado: boolean;
+    parada: Parada;
 }

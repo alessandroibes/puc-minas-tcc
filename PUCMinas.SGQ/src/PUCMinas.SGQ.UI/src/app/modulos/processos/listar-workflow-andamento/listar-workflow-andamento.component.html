@@ -1,0 +1,19 @@
+<div class="container main-container">
+    <h6>Workflows em Andamento</h6>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th class="text-center" scope="col" *ngIf="currentUser && currentUser.operador">Operações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let wf of wfs">
+                <td>{{ wf.nome }}</td>
+                <td class="text-center" *ngIf="currentUser && currentUser.operador">
+                    <button [routerLink]="['/run-workflow', wf.id]" class="btn btn-link">Preencher</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

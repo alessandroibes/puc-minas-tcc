@@ -12,22 +12,26 @@ export class AdminGuard implements CanActivate {
             case "listar-rnc":
                 can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
                     claim => claim.type == "role" &&
-                        (claim.value == "gerente" || claim.value == "engenheiro"));
+                        (claim.value == "gerente"
+                            || claim.value == "engenheiro"));
                 break;
             case "criar-rnc":
                 can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
                     claim => claim.type == "role" &&
-                        claim.value == "engenheiro");
+                        claim.value == "gerente");
                 break;
             case "atualizar-rnc":
                 can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
                     claim => claim.type == "role" &&
-                        (claim.value == "gerente" || claim.value == "engenheiro"));
+                        (claim.value == "gerente"
+                            || claim.value == "engenheiro"));
                 break;
             case "listar-workflow-definicao":
                 can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
                     claim => claim.type == "role" &&
-                        (claim.value == "operador" || claim.value == "gerente" || claim.value == "engenheiro"));
+                        (claim.value == "operador"
+                            || claim.value == "gerente"
+                            || claim.value == "engenheiro"));
                 break;
             case "criar-workflow-definicao":
                 can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
@@ -38,6 +42,18 @@ export class AdminGuard implements CanActivate {
                 can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
                     claim => claim.type == "role" &&
                         claim.value == "engenheiro");
+                break;
+            case "listar-workflow-andamento":
+                can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
+                    claim => claim.type == "role" &&
+                        (claim.value == "operador"
+                            || claim.value == "gerente"
+                            || claim.value == "engenheiro"));
+                break;
+            case "run-workflow":
+                can = this.identityService.currentUserValue.loginUser.userToken.claims.some(
+                    claim => claim.type == "role" &&
+                        claim.value == "operador");
                 break;
         }
         return can;

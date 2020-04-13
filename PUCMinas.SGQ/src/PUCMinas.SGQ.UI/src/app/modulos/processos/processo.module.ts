@@ -15,6 +15,7 @@ import { PassosIniciadosComponent } from './run-workflow/passos-iniciados/passos
 import { PassosFinalizadosComponent } from './run-workflow/passos-finalizados/passos-finalizados.component';
 import { ToDoListComponent } from './run-workflow/todo-list/todo-list.component';
 import { RunWorkflowComponent } from './run-workflow/run-workflow.component';
+import { ListarWorkflowAndamentoComponent } from './listar-workflow-andamento/listar-workflow-andamento.component';
 
 import { ProcessoService } from './services/processo.service';
 import { Store } from './workflow.store';
@@ -28,7 +29,8 @@ import { Store } from './workflow.store';
         PassosIniciadosComponent,
         PassosFinalizadosComponent,
         ToDoListComponent,
-        RunWorkflowComponent
+        RunWorkflowComponent,
+        ListarWorkflowAndamentoComponent
     ],
     imports: [
         CommonModule,
@@ -51,7 +53,8 @@ import { Store } from './workflow.store';
         PassosIniciadosComponent,
         PassosFinalizadosComponent,
         ToDoListComponent,
-        RunWorkflowComponent
+        RunWorkflowComponent,
+        ListarWorkflowAndamentoComponent
     ]
 })
 export class ProcessoModule { }

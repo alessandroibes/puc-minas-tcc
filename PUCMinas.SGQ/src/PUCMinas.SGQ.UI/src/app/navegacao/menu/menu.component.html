@@ -45,6 +45,12 @@
                         <a class="nav-link" [routerLink]="['/criar-workflow-definicao']" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Criar Nova Definição</span></a>
                     </li>
+                    <li class="nav-item"
+                        *ngIf="currentUser && (currentUser.engenheiro || currentUser.operador || currentUser.gerente)">
+                        <a class="nav-link" [routerLink]="['/listar-workflow-andamento']" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }">&nbsp;<span>Listar Workflows em
+                                Andamento</span></a>
+                    </li>
                 </ul>
                 <li class="nav-item">
                     <a class="nav-link" (click)="logout()" href="/login">Logout</a>

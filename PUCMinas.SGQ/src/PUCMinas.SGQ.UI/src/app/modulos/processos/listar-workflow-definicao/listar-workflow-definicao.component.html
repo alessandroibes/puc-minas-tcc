@@ -4,19 +4,21 @@
         <thead>
             <tr>
                 <th scope="col">Nome</th>
-                <th class="text-center" scope="col">Operações</th>
+                <th class="text-center" scope="col" *ngIf="currentUser && currentUser.engenheiro">Operações</th>
+                <th class="text-center" scope="col" *ngIf="currentUser && currentUser.operador">Workflow</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let wd of wds">
                 <td>{{ wd.nome }}</td>
-                <td class="text-center">
+                <td class="text-center" *ngIf="currentUser && currentUser.engenheiro">
                     <button [routerLink]="['/atualizar-workflow-definicao', wd.id]"
                         class="fa fa-pencil fa-lg"></button>&nbsp;
                     <button class="fa fa-list-alt fa-lg" (click)="detalhesModal(wd)"></button>&nbsp;
                     <button class="fa fa-trash fa-lg"></button>
-                    <button class="fa fa-tasks fa-lg" (click)="criarWorkflow(wd.id)"
-                        *ngIf="currentUser && currentUser.operador"></button>
+                </td>
+                <td class="text-center" *ngIf="currentUser && currentUser.operador">
+                    <button class="btn btn-link" (click)="criarWorkflow(wd.id)">Criar Novo</button>
                 </td>
             </tr>
         </tbody>

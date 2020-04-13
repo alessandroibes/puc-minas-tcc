@@ -19,7 +19,6 @@ namespace PUCMinas.SGQ.Processos.WebAPI.ViewModel
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public bool Finalizado { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public IEnumerable<PassoViewModel> Passos { get; set; }
     }
 }
