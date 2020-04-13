@@ -1,41 +1,29 @@
 import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export abstract class BaseService {
 
-    constructor() { }
+    protected extractData(response: any) {
+        return response.data || {};
+    }
 
-    protected handleError(error: any) {
+    protected handleError(response: Response | any) {
+        let customError: string[] = [];
 
-        var applicationError = error.headers.get('Application-Error');
-
-        // Teste
-        switch (error.status) {
-            case 401:
-                console.log('401 - Usuário Não autorizado.')
-                break;
-            case 403:
-                console.log('403 - Acesso proibido.')
-                break;
-            case 404:
-                console.log('404 - Página não encontrada.')
-                break;
-        }
-
-        // either application-error in header or model error in body
-        if (applicationError) {
-            return throwError(applicationError);
-        }
-
-        var modelStateErrors: string = '';
-
-        if (error.error != null) {
-            // for now just concatenate the error descriptions, alternative we could simply pass the entire error response upstream
-            for (var key in error.error.errors) {
-                if (error.error.errors[key]) modelStateErrors += error.error.errors[key] + '\n';
+        if (response instanceof HttpErrorResponse) {
+            if (response.statusText === "Unknown error") {
+                customError.push('Ocorreu um erro desconhecido.');
+                response.error.errors = customError;
+            } else if ("Bad Request") {
+                customError.push('Requisição mal formada.');
+                response.error.errors = customError;
+            } else if ('Not Found') {
+                customError.push('Recurso não encontrado.');
+                response.error.errors = customError;
             }
         }
 
-        modelStateErrors = modelStateErrors = '' ? null : modelStateErrors;
-        return throwError(modelStateErrors || 'Erro no servidor, contacte um administrador.');
+        console.log(response);
+        return throwError(response);
     }
 }

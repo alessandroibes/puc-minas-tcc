@@ -42,4 +42,18 @@ export class BaseCadastroComponent implements AfterViewInit, IsPristineAware {
     clearAlerts() {
         this.alerts = [];
     }
+
+    addAlert(alert: Alert) {
+        this.alerts.push(alert);
+    }
+
+    processarSucesso(resposta: any) {
+        this.loading = false;
+    }
+
+    processarFalha(falha: any) {
+        this.loading = false;
+        this.mudancasNaoSalvas = true;
+        this.alerts = Array.from([{ type: 'danger', message: falha.error.errors }]);
+    }
 }

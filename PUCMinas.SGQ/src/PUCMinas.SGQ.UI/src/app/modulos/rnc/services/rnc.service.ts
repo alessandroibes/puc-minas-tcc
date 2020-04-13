@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { Gravidade } from '../models/gravidade';
 import { Causa } from '../models/causa';
 import { Acao } from '../models/acao';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -42,8 +42,13 @@ export class RNCService extends BaseService {
         return this.http.get<RNC>(this.config.apiIncidentesAddress + "v1/rncs/" + id).pipe(catchError(this.handleError));
     }
 
-    addRNC(rnc: RNC): Observable<any> {
-        return this.http.post<any>(this.config.apiIncidentesAddress + "v1/rncs", rnc).pipe(catchError(this.handleError));
+    addRNC(rnc: RNC): Observable<RNC> {
+        let response = this.http
+            .post(this.config.apiIncidentesAddress + "v1/rncs", rnc)
+            .pipe(
+                map(this.extractData), catchError(this.handleError));
+
+        return response;
     }
 
     updateRNC(rnc: RNC, id: string): Observable<any> {

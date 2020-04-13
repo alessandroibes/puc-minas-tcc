@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -29,7 +31,9 @@ import { ProcessoModule } from './modulos/processos/processo.module';
     ProcessoModule,
     FormsModule,
     ReactiveFormsModule,
-    UiConfirmModule
+    UiConfirmModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
 

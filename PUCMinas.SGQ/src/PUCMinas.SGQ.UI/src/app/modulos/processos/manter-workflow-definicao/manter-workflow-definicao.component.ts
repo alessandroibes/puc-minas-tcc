@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { BaseCadastroComponent } from '../../core/base/base-cadastro.component';
 
@@ -21,7 +22,9 @@ export class ManterWorkflowDefinicaoComponent extends BaseCadastroComponent impl
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private processoService: ProcessoService) {
+        private processoService: ProcessoService,
+        private toastr: ToastrService,
+        private router: Router) {
         super()
 
         this.validationMessages = {
@@ -54,6 +57,7 @@ export class ManterWorkflowDefinicaoComponent extends BaseCadastroComponent impl
         try {
             if ((this.formulario.dirty || this.removido) && this.formulario.valid) {
                 this.loading = true;
+                this.mudancasNaoSalvas = false;
 
                 let wd = new WorkflowDefinicao();
                 wd.nome = this.f.nome.value;
@@ -147,24 +151,28 @@ export class ManterWorkflowDefinicaoComponent extends BaseCadastroComponent impl
     criarWorkflowDefinicao(wd: WorkflowDefinicao) {
         this.processoService.addWorflowDefinicao(wd).subscribe(result => {
             this.loading = false;
-            this.alerts = Array.from([{ type: 'success', message: 'Nova Definição de Workflow criada com sucesso!' }]);
-            this.formulario.reset();
-            this.resetPassos();
-        }, error => {
-            this.loading = false;
-            this.alerts = Array.from([{ type: 'danger', message: error }]);
-        });
+
+            let tr = this.toastr.success('Definição de Workflow criada com sucesso!', 'Sucesso!');
+            if (tr) {
+                tr.onHidden.subscribe(() => {
+                    this.router.navigate(['/listar-workflow-definicao']);
+                });
+            }
+        }, error => { this.processarFalha(error) }
+        );
     }
 
     atualizarWorkflowDefinicao(wd: WorkflowDefinicao) {
         this.processoService.updateWorflowDefinicao(wd, this.id).subscribe(result => {
+
             this.loading = false;
-            this.alerts = Array.from([{ type: 'success', message: 'Definição de Workflow alterada com sucesso!' }]);
-            this.formulario.reset();
-            this.resetPassos();
-        }, error => {
-            this.loading = false;
-            this.alerts = Array.from([{ type: 'danger', message: error }]);
-        });
+            let tr = this.toastr.success('Definição de Workflow alterada com sucesso!', 'Sucesso!');
+            if (tr) {
+                tr.onHidden.subscribe(() => {
+                    this.router.navigate(['/listar-workflow-definicao']);
+                });
+            }
+        }, error => { this.processarFalha(error) }
+        );
     }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GenericValidator } from '../../core/generic-form-validation';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 import { RNCService } from '../services/rnc.service';
 import { RNC } from '../models/rnc';
 import { Gravidade } from '../models/gravidade';
@@ -24,7 +26,9 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private rncService: RNCService) {
+        private rncService: RNCService,
+        private toastr: ToastrService,
+        private router: Router) {
         super()
 
         this.classificacao = [
@@ -65,6 +69,7 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
         try {
             if (this.formulario.dirty && this.formulario.valid) {
                 this.loading = true;
+                this.mudancasNaoSalvas = false;
                 if (this.rnc == null) {
                     this.rnc = new RNC();
                 }
@@ -98,8 +103,6 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
                 // não submeteu
             }
 
-            this.formulario.reset();
-            this.limparFormulario();
         } catch (e) {
             this.loading = false;
             this.alerts = Array.from([{ type: 'danger', message: 'Erro ao tentar salvar RNC.' }]);
@@ -176,22 +179,31 @@ export class ManterRNCComponent extends BaseCadastroComponent implements OnInit 
     }
 
     criarRNC() {
+
         this.rncService.addRNC(this.rnc).subscribe(result => {
             this.loading = false;
-            this.alerts = Array.from([{ type: 'success', message: 'Nova RNC criada com sucesso!' }]);
-        }, error => {
-            this.loading = false;
-            this.alerts = Array.from([{ type: 'danger', message: error }]);
-        });
+            let tr = this.toastr.success('RNC alterada com sucesso!', 'Sucesso!');
+            if (tr) {
+                tr.onHidden.subscribe(() => {
+                    this.router.navigate(['/listar-rnc']);
+                });
+            }
+        },
+            error => { this.processarFalha(error) }
+        );
     }
 
     atualizarRNC() {
         this.rncService.updateRNC(this.rnc, this.id).subscribe(result => {
             this.loading = false;
-            this.alerts = Array.from([{ type: 'success', message: 'RNC alterada com sucesso!' }]);
+            let tr = this.toastr.success('RNC alterada com sucesso!', 'Sucesso!');
+            if (tr) {
+                tr.onHidden.subscribe(() => {
+                    this.router.navigate(['/listar-rnc']);
+                });
+            }
         }, error => {
-            this.loading = false;
-            this.alerts = Array.from([{ type: 'danger', message: error }]);
+            error => { this.processarFalha(error) }
         });
     }
 }
