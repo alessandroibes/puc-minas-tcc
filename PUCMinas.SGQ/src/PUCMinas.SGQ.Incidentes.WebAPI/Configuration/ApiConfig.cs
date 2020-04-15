@@ -22,7 +22,8 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
             });
 
             services.AddCors(options => {
-                options.AddPolicy("AllowAll", builder => {
+                options.AddPolicy("AllowAll", 
+                    builder => {
                     builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
@@ -34,7 +35,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
 
         public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app)
         {
-            app.UseCors("AllowAll");
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
 

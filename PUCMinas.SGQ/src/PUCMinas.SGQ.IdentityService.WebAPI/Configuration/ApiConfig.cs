@@ -23,22 +23,12 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
 
             services.AddCors(options =>
             {
-                options.AddPolicy("Development",
+                options.AddPolicy("AllowAll",
                     builder =>
                         builder
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
-                        //.AllowCredentials());
-
-                //options.AddPolicy("Production",
-                //    builder =>
-                //        builder
-                //            .WithMethods("GET")
-                //            .WithOrigins("http://desenvolvedor.io")
-                //            .SetIsOriginAllowedToAllowWildcardSubdomains()
-                //            //.WithHeaders(HeaderNames.ContentType, "x-custom-header")
-                //            .AllowAnyHeader());
             });
 
             return services;
@@ -46,7 +36,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.Configuration
 
         public static IApplicationBuilder UseMvcIdentityServiceConfiguration(this IApplicationBuilder app)
         {
-            app.UseCors("Development");
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
 

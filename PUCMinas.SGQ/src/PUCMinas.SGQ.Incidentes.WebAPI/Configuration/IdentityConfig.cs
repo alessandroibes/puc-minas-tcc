@@ -30,8 +30,7 @@ namespace PUCMinas.SGQ.Incidentes.WebAPI.Configuration
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = appSettings.ValidoEm,
+                    ValidateAudience = false,
                     ValidIssuer = appSettings.Emissor
                 };
             });

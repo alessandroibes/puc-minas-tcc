@@ -35,7 +35,7 @@ export class IdentityService extends BaseService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(this.config.apiIdentityServiceAddress + "v1/entrar", { username, password })
+        return this.http.post<any>(this.config.apiIdentityServiceAddress + "api/v1/entrar", { username, password })
             .pipe(map(response => {
                 if (response && response.success) {
                     this.loggedUser = new User;

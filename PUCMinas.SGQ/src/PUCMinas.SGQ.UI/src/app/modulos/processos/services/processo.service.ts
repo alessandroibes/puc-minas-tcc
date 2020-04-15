@@ -22,43 +22,43 @@ export class ProcessoService extends BaseService {
 
     // WorflowDefinicao
     getWorflowDefinicao(): Observable<WorkflowDefinicao[]> {
-        return this.http.get<WorkflowDefinicao[]>(this.config.apiProcessosAddress + "v1/workflowdefinicao").pipe(catchError(this.handleError));
+        return this.http.get<WorkflowDefinicao[]>(this.config.apiProcessosAddress + "api/v1/workflowdefinicao").pipe(catchError(this.handleError));
     }
 
     getWorflowDefinicaoPorId(id: string): Observable<WorkflowDefinicao> {
-        return this.http.get<WorkflowDefinicao>(this.config.apiProcessosAddress + "v1/workflowdefinicao/" + id).pipe(catchError(this.handleError));
+        return this.http.get<WorkflowDefinicao>(this.config.apiProcessosAddress + "api/v1/workflowdefinicao/" + id).pipe(catchError(this.handleError));
     }
 
     addWorflowDefinicao(wd: WorkflowDefinicao): Observable<any> {
-        return this.http.post<any>(this.config.apiProcessosAddress + "v1/workflowdefinicao", wd).pipe(catchError(this.handleError));
+        return this.http.post<any>(this.config.apiProcessosAddress + "api/v1/workflowdefinicao", wd).pipe(catchError(this.handleError));
     }
 
     updateWorflowDefinicao(wd: WorkflowDefinicao, id: string): Observable<any> {
-        return this.http.put<any>(this.config.apiProcessosAddress + "v1/workflowdefinicao/" + id, wd).pipe(catchError(this.handleError));
+        return this.http.put<any>(this.config.apiProcessosAddress + "api/v1/workflowdefinicao/" + id, wd).pipe(catchError(this.handleError));
     }
 
     // workflow
     getWorflowEmAndamento(): Observable<Workflow[]> {
-        return this.http.get<Workflow[]>(this.config.apiProcessosAddress + "v1/workflow/todolist").pipe(catchError(this.handleError));
+        return this.http.get<Workflow[]>(this.config.apiProcessosAddress + "api/v1/workflow/todolist").pipe(catchError(this.handleError));
     }
 
     getPassos(workflowId: string): Observable<Passo[]> {
-        return this.http.get<Passo[]>(this.config.apiProcessosAddress + 'v1/workflow/todolist/' + workflowId)
+        return this.http.get<Passo[]>(this.config.apiProcessosAddress + 'api/v1/workflow/todolist/' + workflowId)
             .pipe(tap(next => this.store.set('todolist', next)))
             .pipe(catchError(this.handleError));
     }
 
     criarWorkflow(workflowDefinicaoId: string): Observable<Workflow> {
-        return this.http.get<Workflow>(this.config.apiProcessosAddress + 'v1/workflow/criar-workflow/' + workflowDefinicaoId).pipe(catchError(this.handleError));
+        return this.http.get<Workflow>(this.config.apiProcessosAddress + 'api/v1/workflow/criar-workflow/' + workflowDefinicaoId).pipe(catchError(this.handleError));
     }
 
     registrarParada(parada: Parada): Observable<any> {
-        return this.http.post<any>(this.config.apiProcessosAddress + 'v1/workflow/registrar-parada', parada).pipe(catchError(this.handleError));
+        return this.http.post<any>(this.config.apiProcessosAddress + 'api/v1/workflow/registrar-parada', parada).pipe(catchError(this.handleError));
     }
 
     toggle(event: any) {
         this.http
-            .put(this.config.apiProcessosAddress + `v1/workflow/todolist/${event.passo.id}`, event.passo)
+            .put(this.config.apiProcessosAddress + `api/v1/workflow/todolist/${event.passo.id}`, event.passo)
             .subscribe(() => {
                 const value = this.store.value.todolist;
 

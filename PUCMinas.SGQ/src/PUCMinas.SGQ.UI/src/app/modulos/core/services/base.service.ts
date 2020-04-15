@@ -16,14 +16,12 @@ export abstract class BaseService {
                 response.error.errors = customError;
             } else if ("Bad Request") {
                 customError.push('Requisição mal formada.');
-                response.error.errors = customError;
             } else if ('Not Found') {
                 customError.push('Recurso não encontrado.');
-                response.error.errors = customError;
             }
         }
 
         console.log(response);
-        return throwError(response);
+        return throwError(response.error.errors);
     }
 }

@@ -16,11 +16,13 @@ import { IsPristineGuard } from './modulos/core/alerts/ui-confirm.module';
 import { ManterWorkflowDefinicaoComponent } from './modulos/processos/manter-workflow-definicao/manter-workflow-definicao.component';
 import { RunWorkflowComponent } from './modulos/processos/run-workflow/run-workflow.component';
 import { ListarWorkflowAndamentoComponent } from './modulos/processos/listar-workflow-andamento/listar-workflow-andamento.component';
+import { SobreComponent } from './institucional/sobre/sobre.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, canActivate: [AuthenticatedGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'sobre', component: SobreComponent },
     { path: 'listar-rnc', component: ListarRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard] },
     { path: 'criar-rnc', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },
     { path: 'atualizar-rnc/:id', component: ManterRNCComponent, canActivate: [AuthenticatedGuard, AdminGuard], canDeactivate: [IsPristineGuard] },

@@ -16,9 +16,20 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment hostEnvironment)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+                .AddEnvironmentVariables();
+
+            if (hostEnvironment.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -42,7 +53,6 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -51,6 +61,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI
                 app.UseHsts();
             }
 
+            app.UseCors("AllowAll");
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvcIdentityServiceConfiguration();
             app.UseSwaggerConfig(provider);

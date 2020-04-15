@@ -114,7 +114,7 @@ namespace PUCMinas.SGQ.IdentityService.WebAPI.V1.Controllers
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
                 Issuer = _appSettings.Emissor,
-                Audience = _appSettings.ValidoEm,
+                //Audience = _appSettings.ValidoEm,
                 Subject = identityClaims,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

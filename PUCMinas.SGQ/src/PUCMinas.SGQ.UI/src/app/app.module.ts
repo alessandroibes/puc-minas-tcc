@@ -17,10 +17,12 @@ import { UiConfirmModule } from './modulos/core/alerts/ui-confirm.module';
 import { IdentityModule } from './identity/Identity.module';
 import { RNCModule } from './modulos/rnc/rnc.module';
 import { ProcessoModule } from './modulos/processos/processo.module';
+import { SobreComponent } from './institucional/sobre/sobre.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SobreComponent
   ],
   imports: [
     BrowserModule,
