@@ -76,6 +76,10 @@
     </tr>
   </tbody>
 </table>
+<h2>Diagramas</h2>
+<h3>Diagrama de Componentes</h3>
+<p>O diagrama de componentes do sistema, os quais impactam no design da arquitetura e seleção das tecnologias. Foram organizados para serem reutilizáveis e fornecerem interfaces bem definidas de acordo com suas responsabilidades.</p>
+<img src="/Diagramas/DiagramaDeComponentes.jpeg">
 <h2>Telas da Aplicação</h2>
 <h3>Web</h3>
 <p>Tela de login da aplicação</p>
