@@ -76,3 +76,46 @@
     </tr>
   </tbody>
 </table>
+<h2>Telas da Aplicação</h2>
+<h3>Web</h3>
+<p>Tela de login da aplicação</p>
+<img src="/Prints/web-login.jpg">
+<br />
+<p>Tela de cadastro de Não Conformidade</p>
+<img src="/Prints/web-criar-rnc.jpg">
+<br />
+<p>Tela de datalhes de Não Confirmidade</p>
+<img src="/Prints/web-listar-rnc.jpg">
+<br />
+<p>Tela de cadastro de Definição de Workflow</p>
+<img src="/Prints/web-criar-definicao-workflow.jpg">
+<br />
+<p>Tela de detalhes da Definição de Workflow</p>
+<img src="/Prints/web-listar-definicao-workflow.jpg">
+<br />
+<p>Tela de preenchimento de Workflow</p>
+<img src="/Prints/web-preencher-workflow.jpg">
+<br />
+<p>Tela de registro de Paradas</p>
+<img src="/Prints/web-registrar-parada.jpg">
+<h3>Mobile</h3>
+<p>Tela de login da aplicação</p>
+<img src="/Prints/mobile-login.jpg">
+<br />
+<p>Tela de cadastro de Definição de Workflow</p>
+<img src="/Prints/mobile-criar-definicao-workflow.jpg">
+<br />
+<p>Tela de detalhes da Definição de Workflow</p>
+<img src="/Prints/mobile-detalhar-definicao-workflow.jpg">
+<br />
+<p>Tela de listagem da Definição de Workflow</p>
+<img src="/Prints/mobile-listar-definicao-workflow.jpg">
+<br />
+<p>Tela de preenchimento de Workflow</p>
+<img src="/Prints/mobile-preencher-workflow.jpg">
+<br />
+<p>Modal de confirmação</p>
+<img src="/Prints/mobile-modal-confirmacao.jpg">
+<br />
+<p>Tela Sobre</p>
+<img src="/Prints/mobile-sobre.jpg">
